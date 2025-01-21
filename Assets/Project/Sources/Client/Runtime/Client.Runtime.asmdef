@@ -1,0 +1,16 @@
+{
+    "name": "Client.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b7e9b6bd6b8eac044bfeeec34110c70c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
