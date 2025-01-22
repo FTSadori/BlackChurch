@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 453850ae03901d94caedd21fd787e0c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeToFindItem: 2
+  _trashPileScriptableObject: {fileID: 11400000, guid: 096f14024bd07f442b8fabb48c41a036, type: 2}
   _state: 0
 --- !u!1 &9104273435716292663
 GameObject:

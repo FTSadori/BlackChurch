@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Client.Runtime.Game.ScriptableObjects.Piles;
 using UnityEngine;
 
 namespace Client.Runtime.Game.Environment.TrashPile
@@ -15,7 +16,7 @@ namespace Client.Runtime.Game.Environment.TrashPile
 
     public sealed class TrashPileModel : MonoBehaviour
     {
-        public float _timeToFindItem = 2f;
+        public TrashPileScriptableObject _trashPileScriptableObject;
         public TrashPileState _state = TrashPileState.AWAITS;
     }
 }

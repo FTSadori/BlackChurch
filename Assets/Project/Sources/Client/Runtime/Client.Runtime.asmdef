@@ -2,7 +2,8 @@
     "name": "Client.Runtime",
     "rootNamespace": "",
     "references": [
-        "GUID:b7e9b6bd6b8eac044bfeeec34110c70c"
+        "GUID:b7e9b6bd6b8eac044bfeeec34110c70c",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

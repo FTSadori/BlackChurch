@@ -14,6 +14,8 @@ namespace Client.Runtime.Game.Environment.TrashPile
         [SerializeField] TrashPileModel _trashPileModel;
         [SerializeField] TimeBarController _barController;
 
+        private bool _isBlocked = false;
+
         private void Awake() {
             _barController.OnComplete += OnTimeUp;
         }
@@ -25,8 +27,10 @@ namespace Client.Runtime.Game.Environment.TrashPile
 
         public void Interact()
         {
+            if (_isBlocked) return;
+            _isBlocked = true;
             _barObject.SetActive(true);
-            _barController.StartTimer(_trashPileModel._timeToFindItem);
+            _barController.StartTimer(_trashPileModel._trashPileScriptableObject.timeToFindItem);
         }
 
         public void Select()
@@ -36,6 +40,7 @@ namespace Client.Runtime.Game.Environment.TrashPile
 
         private void OnTimeUp()
         {
+            _isBlocked = false;
             _barObject.SetActive(false);
             Debug.Log("Player has found something");
         }

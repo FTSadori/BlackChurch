@@ -8,6 +8,8 @@ TagManager:
   - OneWayPlatform
   - Character
   - Selectable
+  - Slots
+  - Cursor
   layers:
   - Default
   - TransparentFX

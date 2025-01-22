@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c81a7bdc45cd447408aa35ef87af4523, type: 3}
+  m_Name: ItemList
+  m_EditorClassIdentifier: 
+  ids:
+  - RedPorridge
+  - StupidSword
+  - Trash
+  items:
+  - {fileID: 11400000, guid: 8d07e6d43e9360f4192e120b8f66131e, type: 2}
+  - {fileID: 11400000, guid: 148d7050167f7e0418305cb5aea3ad45, type: 2}
+  - {fileID: 11400000, guid: c66a862b00965094f9fc52237c507190, type: 2}
