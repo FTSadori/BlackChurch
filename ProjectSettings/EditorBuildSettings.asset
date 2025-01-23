@@ -5,13 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
+    path: Assets/Project/Activities/Bootstrap/Scenes/Bootstrap.unity
+    guid: 7c3eb367830bd7d42a925b0355db655a
+  - enabled: 1
     path: Assets/Project/Activities/System/Scenes/System_Audio.unity
     guid: 8966574bbdfed4941b70682e646265f2
   - enabled: 1
     path: Assets/Project/Activities/System/Scenes/System_MainCamera.unity
     guid: 04afddaa86fab0d4e9e9506c92798016
-  - enabled: 0
+  - enabled: 1
     path: Assets/Project/Activities/System/Scenes/System_Input.unity
     guid: 1516a8bb0bc1c5f4d85e0b6dd8fd3cec
   - enabled: 1

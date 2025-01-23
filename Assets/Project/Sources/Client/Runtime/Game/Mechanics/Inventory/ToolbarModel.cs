@@ -14,5 +14,7 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             SlotType.EVERYTHING, SlotType.EVERYTHING, SlotType.EVERYTHING,
             SlotType.EVERYTHING,
         });
+
+        public InventoryData InventoryData => _inventoryData;
     }
 }

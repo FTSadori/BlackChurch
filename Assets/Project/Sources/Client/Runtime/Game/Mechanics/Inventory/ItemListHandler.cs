@@ -24,30 +24,35 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             return item;
         }
 
+        public List<string> GetWhatCanBeCraftedFrom(string id)
+        {
+            if (id == "")
+                return new List<string>();
+
+            return _itemListScriptableObject
+                .items
+                .Where(i => i.craftsFromId1 == id || i.craftsFromId2 == id)
+                .Select(i => i.id)
+                .ToList();
+        }
+
         public SlotType GetNeededSlotTypeById(string id)
         {
             var itemObj = GetObjectById(id);
 
-            if (itemObj.itemType == ItemType.EQUIPABLE)
+            if (itemObj.itemType == ItemType.EQUIPABLE && itemObj is EquipableScriptableObject equipableObj)
             {
-                if (itemObj is EquipableScriptableObject equipableObj)
+                return equipableObj.equipableType switch
                 {
-                    return equipableObj.equipableType switch
-                    {
-                        EquipableType.WEAPON => SlotType.WEAPON_ONLY,
-                        EquipableType.ACCESSORY => SlotType.ACCESSORY_ONLY,
-                        EquipableType.BODY => SlotType.BODY_ONLY,
-                        EquipableType.HEAD => SlotType.HEAD_ONLY,
-                        EquipableType.LEGS => SlotType.LEGS_ONLY,
-                        _ => SlotType.EVERYTHING,
-                    };
-                }
-                return SlotType.EVERYTHING;
+                    EquipableType.WEAPON => SlotType.WEAPON_ONLY,
+                    EquipableType.ACCESSORY => SlotType.ACCESSORY_ONLY,
+                    EquipableType.BODY => SlotType.BODY_ONLY,
+                    EquipableType.HEAD => SlotType.HEAD_ONLY,
+                    EquipableType.LEGS => SlotType.LEGS_ONLY,
+                    _ => SlotType.EVERYTHING,
+                };
             }
-            else
-            {
-                return SlotType.EVERYTHING;
-            }
+            return SlotType.EVERYTHING;
         }
     }
 }

@@ -18,10 +18,10 @@ namespace Client.Runtime.Game.Mechanics.Inventory
     public sealed class InventoryDataRecord
     {
         public string id;
-        public uint quantity;
+        public int quantity;
         public SlotType type;
 
-        public InventoryDataRecord(string _id, uint _quantity, SlotType _type)
+        public InventoryDataRecord(string _id, int _quantity, SlotType _type)
         {
             id = _id;
             quantity = _quantity;

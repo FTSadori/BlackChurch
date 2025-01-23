@@ -16,7 +16,11 @@ MonoBehaviour:
   - RedPorridge
   - StupidSword
   - Trash
+  - Thing
+  - Chair
   items:
   - {fileID: 11400000, guid: 8d07e6d43e9360f4192e120b8f66131e, type: 2}
   - {fileID: 11400000, guid: 148d7050167f7e0418305cb5aea3ad45, type: 2}
   - {fileID: 11400000, guid: c66a862b00965094f9fc52237c507190, type: 2}
+  - {fileID: 11400000, guid: 32946ad3db7a3c048824ca66498a9412, type: 2}
+  - {fileID: 11400000, guid: d0bfe3df8a56e6048a7fbe75dc72ffd0, type: 2}

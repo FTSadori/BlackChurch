@@ -31,8 +31,8 @@ namespace Client.Runtime.Game.ScriptableObjects
         public string id;
         public Sprite sprite;
         public Rarity rarity;
-        public uint quantity;
-        public uint stack;
+        public int quantity;
+        public int stack;
         public ItemType itemType;
         public string craftsFromId1;
         public string craftsFromId2;

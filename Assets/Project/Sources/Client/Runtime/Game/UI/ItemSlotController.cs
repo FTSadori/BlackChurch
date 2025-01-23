@@ -23,7 +23,7 @@ namespace Client.Runtime.Game.UI
         [SerializeField] GameObject _itemImageObject;
         [SerializeField] TMP_Text _countText;
 
-        public void Set(string id, uint count)
+        public void Set(string id, int count)
         {
             var item = _itemListHandler.GetObjectById(id);
 
