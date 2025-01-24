@@ -28,6 +28,11 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             return _inventory[number];
         }
 
+        public bool IsSlotEmpty(int number)
+        {
+            return _inventory[number].id == "";
+        }
+
         public bool TryAddItem(string id, int quantity)
         {
             if (quantity == 0) return false;

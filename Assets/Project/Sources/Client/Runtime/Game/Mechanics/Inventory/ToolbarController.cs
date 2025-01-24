@@ -15,14 +15,14 @@ namespace Client.Runtime.Game.Mechanics.Inventory
         private void Update() {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                if (_toolbarModel.InventoryData.TryAddItem("RedPorridge", 1))
+                if (_toolbarModel.InventoryData.TryAddItem("Thing", 1))
                     UpdateInventory();
                 else
                     Debug.Log("Not enough space");
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                if (_toolbarModel.InventoryData.TryAddItem("RedPorridge", 3))
+                if (_toolbarModel.InventoryData.TryAddItem("Chair", 1))
                     UpdateInventory();
                 else
                     Debug.Log("Not enough space");

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BlackChurch.Assets.Project.Sources.Client.Runtime.Game.ScriptableObjects.Visuals;
+using Client.Runtime.Game.ScriptableObjects.Visuals;
 using Client.Runtime.Game.ScriptableObjects;
 using Client.Runtime.Game.ScriptableObjects.Lists;
 using UnityEngine;
