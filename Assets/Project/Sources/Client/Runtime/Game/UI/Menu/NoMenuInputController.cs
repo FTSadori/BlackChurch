@@ -18,7 +18,7 @@ namespace Client.Runtime.Game.UI.Menu
         [SerializeField] EquipmentMenuInputController _equipmentMenuInputContoller;
         [SerializeField] ItemMenuInputController _itemMenuInputController;
         [SerializeField] ItemMenuController _itemMenuController;
-        [SerializeField] ToolbarModel _toolbarModel;
+        [SerializeField] WholeInventoryHandler _wholeInventoryHandler;
 
         private readonly List<KeyCode> _toolbarCodes = new(){
             KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3,
@@ -47,9 +47,9 @@ namespace Client.Runtime.Game.UI.Menu
             if (Input.GetKeyDown(keyCode))
             {
                 var slotNum = keyCode - KeyCode.Alpha1;
-                if (!_toolbarModel.InventoryData.IsSlotEmpty(slotNum))
+                if (!_wholeInventoryHandler.GetToolbarInventory().IsSlotEmpty(slotNum))
                 {
-                    _itemMenuController.Set(_toolbarModel.InventoryData.GetBySlotNumber(slotNum).id);
+                    _itemMenuController.Set(_wholeInventoryHandler.GetFromToolbar(slotNum));
                     _openItemMenu.Execute();
                     _menuController.Push(_itemMenuInputController);
                 }

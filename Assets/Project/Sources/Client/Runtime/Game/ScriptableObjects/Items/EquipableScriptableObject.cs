@@ -14,7 +14,12 @@ namespace Client.Runtime.Game.ScriptableObjects
         BODY,
         LEGS,
         ACCESSORY,
-        MAX_TYPE,
+    }
+
+    public enum WeaponType
+    {
+        RANGED,
+        MELEE,
     }
 
     [CreateAssetMenu(fileName = "Equipable", menuName = "ScriptableObjects/Items/Equipable")]
@@ -22,5 +27,6 @@ namespace Client.Runtime.Game.ScriptableObjects
     {
         public EquipableType equipableType;
         public CharacterStats additiveStats;
+        public WeaponType weaponType;
     }
 }

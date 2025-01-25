@@ -8,6 +8,7 @@ using UnityEngine;
 using TMPro;
 using Client.Runtime.Game.ScriptableObjects;
 using UnityEngine.UI;
+using Client.Runtime.Game.Mechanics.Inventory.Data;
 
 namespace Client.Runtime.Game.Mechanics.Inventory
 {
@@ -15,6 +16,7 @@ namespace Client.Runtime.Game.Mechanics.Inventory
     {
         [SerializeField] private ItemListHandler _itemListHandler;
         [SerializeField] private RarityColorsScriptableObject _rarityColorsScriptableObject;
+        [SerializeField] private CraftMenuController _craftMenuController;
 
 
         [Header("MenuComponents")]
@@ -26,7 +28,6 @@ namespace Client.Runtime.Game.Mechanics.Inventory
 
         [SerializeField] private Button _craftButton;
         [SerializeField] private Button _useOrEquipButton;
-        [SerializeField] private TMP_Text _useOrEquipField;
         [SerializeField] private Button _discardButton;
 
         [SerializeField] private RectTransform _contentOfCraftField;
@@ -34,50 +35,29 @@ namespace Client.Runtime.Game.Mechanics.Inventory
 
         private string currentId = "";
 
-        public string GetCurrentId()
+        private List<string> listOfCraftables = new();
+
+        public string GetCurrentId() => currentId;
+
+        public List<string> GetListOfCraftables() => listOfCraftables;
+
+        public void Set(ItemData itemData)
         {
-            return currentId;
-        }
+            currentId = itemData.id;
 
-        public void Set(string id)
-        {
-            currentId = id;
+            _bigItemSlotController.Set(itemData.id, 1);
+            _nameField.text = itemData.nameId;
+            _nameField.color = _rarityColorsScriptableObject.rarityColors[(int)_itemListHandler.GetObjectById(itemData.id).rarity];
+            _rarityField.text = "Rarity:\n" + itemData.rarityId;
+            _typeField.text = "Type:\n" + itemData.typeId;
+            _descriptionField.text = itemData.descriptionId;
 
-            var itemObj = _itemListHandler.GetObjectById(id);
-            
-            _bigItemSlotController.Set(id, 1);
-            _nameField.text = itemObj.id;
-            _nameField.color = _rarityColorsScriptableObject.rarityColors[(int)itemObj.rarity];
-            _rarityField.text = "Rarity:\n" + itemObj.rarity.ToString();
-            switch (itemObj.itemType)
-            {
-                case ItemType.CONSUMABLE:
-                    _useOrEquipField.text = "Use";
-                    _useOrEquipButton.interactable = true;
-                    _typeField.text = "Type:\nConsumable";
-                    break;
-                case ItemType.MATERIAL:
-                    _typeField.text = "Type:\nMaterial";
-                    break;
-                case ItemType.EQUIPABLE:
-                    _useOrEquipField.text = "Equip";
-                    _useOrEquipButton.interactable = true;
-                    if (itemObj is EquipableScriptableObject equipableObj)
-                    {
-                        _typeField.text = "Type:\n" + equipableObj.equipableType.ToString();
-                    }
-                    else
-                        _typeField.text = "Type:\nError";
-                    break;
-            }
-            _descriptionField.text = itemObj.id + "_desc";
-            _discardButton.interactable = true;
-            if (itemObj.craftsFromId1 != "" && itemObj.craftsFromId2 != "")
-            {
-                _craftButton.interactable = true;
-            }
+            _discardButton.interactable = itemData.discardButtonActive;
+            _craftButton.interactable = itemData.craftButtonActive;
+            _useOrEquipButton.interactable = itemData.useButtonActive;
 
-            var list = _itemListHandler.GetWhatCanBeCraftedFrom(id);
+            var list = _itemListHandler.GetWhatCanBeCraftedFrom(itemData.id);
+            listOfCraftables = list;
             float width = Mathf.Max(856f, 100f + 90f * list.Count);
 
             for (int i = 0; i < _contentOfCraftField.childCount; ++i)
@@ -93,6 +73,11 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             }
 
             _contentOfCraftField.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+
+            if (itemData.craftButtonActive)
+            {   
+                _craftMenuController.Set(itemData);
+            }
         }
     }
 }

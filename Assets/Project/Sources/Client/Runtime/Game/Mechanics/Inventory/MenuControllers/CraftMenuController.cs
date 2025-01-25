@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Client.Runtime.Game.Mechanics.Inventory.Data;
 using Client.Runtime.Game.ScriptableObjects.Visuals;
 using Client.Runtime.Game.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Client.Runtime.Game.Mechanics.Inventory
 {
@@ -18,15 +20,24 @@ namespace Client.Runtime.Game.Mechanics.Inventory
         [SerializeField] private ItemSlotController _leftMaterial;
         [SerializeField] private ItemSlotController _rightMaterial;
         [SerializeField] private ItemSlotController _result;
-         
+        [SerializeField] private Button _craftButton;
+        
+        private string currentMaterial1 = "";
+        private string currentMaterial2 = "";
 
-        public void Set(string id)
+        public string GetCurrentMaterial1() => currentMaterial1;
+        public string GetCurrentMaterial2() => currentMaterial2;        
+
+        public void Set(ItemData itemData)
         {
-            var itemObj = _itemListHandler.GetObjectById(id);
+            currentMaterial1 = itemData.leftMaterialId;
+            currentMaterial2 = itemData.rightMaterialId;
 
-            _result.Set(id, 1);
-            _leftMaterial.Set(itemObj.craftsFromId1, 1);
-            _rightMaterial.Set(itemObj.craftsFromId2, 1);
+            _result.Set(itemData.id, 1);
+            _leftMaterial.Set(itemData.leftMaterialId, 1);
+            _rightMaterial.Set(itemData.rightMaterialId, 1);
+
+            _craftButton.interactable = itemData.canBeCraftedNow;
         }
     }
 }

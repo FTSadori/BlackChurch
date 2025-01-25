@@ -20,6 +20,7 @@ namespace Client.Runtime.Game.UI.Menu
         [SerializeField] CraftMenuController _craftMenuController;
         [SerializeField] ItemMenuController _itemMenuController;
         [SerializeField] ItemListHandler _itemListHandler;
+        [SerializeField] WholeInventoryHandler _wholeInventoryHandler;
 
         private readonly List<KeyCode> _usedInCraftCodes = new(){
             KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3,
@@ -36,8 +37,6 @@ namespace Client.Runtime.Game.UI.Menu
             }
             else if (Input.GetKeyDown(KeyCode.Z))
             {
-                _craftMenuController.Set(_itemMenuController.GetCurrentId());
-
                 _openCraftMenu.Execute();
                 _menuController.Push(_craftMenuInputController);
             }
@@ -55,10 +54,21 @@ namespace Client.Runtime.Game.UI.Menu
             {
                 foreach (KeyCode keyCode in _usedInCraftCodes)
                 {
-                    if (Input.GetKeyDown(keyCode))
-                    {
-                        // update window
-                    }
+                    TryOpenItemMenu(keyCode);
+                }
+            }
+        }
+
+        private void TryOpenItemMenu(KeyCode keyCode)
+        {
+            if (Input.GetKeyDown(keyCode))
+            {
+                var list = _itemMenuController.GetListOfCraftables();
+
+                var slotNum = keyCode - KeyCode.Alpha1;
+                if (slotNum < list.Count)
+                {
+                    _itemMenuController.Set(_wholeInventoryHandler.GetItemData(list[slotNum]));
                 }
             }
         }

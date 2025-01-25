@@ -381,6 +381,7 @@ Transform:
   m_Children:
   - {fileID: 1395475708}
   - {fileID: 717472728}
+  - {fileID: 1656009611}
   m_Father: {fileID: 1060152017}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &131475792
@@ -1208,7 +1209,7 @@ MonoBehaviour:
   _equipmentMenuInputContoller: {fileID: 2051325907}
   _itemMenuInputController: {fileID: 1274836500}
   _itemMenuController: {fileID: 425336415}
-  _toolbarModel: {fileID: 1278371774}
+  _wholeInventoryHandler: {fileID: 1656009612}
 --- !u!4 &404007031
 Transform:
   m_ObjectHideFlags: 0
@@ -1276,6 +1277,7 @@ MonoBehaviour:
   _itemListHandler:
     _itemListScriptableObject: {fileID: 11400000, guid: 61bc246e8fcda2f429b089224cb29877, type: 2}
   _rarityColorsScriptableObject: {fileID: 11400000, guid: 3d225188d91668f4b89361c0a1934d3b, type: 2}
+  _craftMenuController: {fileID: 788834343}
   _bigItemSlotController: {fileID: 603578513}
   _nameField: {fileID: 660139650}
   _typeField: {fileID: 619146028}
@@ -1283,7 +1285,6 @@ MonoBehaviour:
   _descriptionField: {fileID: 995365380}
   _craftButton: {fileID: 1198284764994870415}
   _useOrEquipButton: {fileID: 1358285359}
-  _useOrEquipField: {fileID: 2125028464}
   _discardButton: {fileID: 1811762577}
   _contentOfCraftField: {fileID: 316703205}
   _prefabOfSlot: {fileID: 8208219193971490632, guid: 031580701e9710543b0401a616e02c53, type: 3}
@@ -3075,6 +3076,7 @@ MonoBehaviour:
   _leftMaterial: {fileID: 914259861}
   _rightMaterial: {fileID: 1023257506}
   _result: {fileID: 1545798841}
+  _craftButton: {fileID: 971801839}
 --- !u!4 &792525521 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7333398816891491947, guid: 45a882caa3e07e443a8fad90b0814ca6, type: 3}
@@ -3709,6 +3711,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75c11b7a5f6f2c74abf0255f9e436fe1, type: 3}
+--- !u!114 &971801839 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3044626850374779465, guid: 75c11b7a5f6f2c74abf0255f9e436fe1, type: 3}
+  m_PrefabInstance: {fileID: 971801838}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &971946549
 GameObject:
   m_ObjectHideFlags: 0
@@ -5332,6 +5345,7 @@ MonoBehaviour:
   _itemMenuController: {fileID: 425336415}
   _itemListHandler:
     _itemListScriptableObject: {fileID: 11400000, guid: 61bc246e8fcda2f429b089224cb29877, type: 2}
+  _wholeInventoryHandler: {fileID: 1656009612}
 --- !u!4 &1274836501
 Transform:
   m_ObjectHideFlags: 0
@@ -6002,6 +6016,9 @@ MonoBehaviour:
   _closeCraftMenu: {fileID: 678544074}
   _closeItemMenu: {fileID: 1420680339}
   _itemMenuInputController: {fileID: 1274836500}
+  _itemMenuController: {fileID: 425336415}
+  _craftMenuController: {fileID: 788834343}
+  _wholeInventoryHandler: {fileID: 1656009612}
 --- !u!1 &1509481632
 GameObject:
   m_ObjectHideFlags: 0
@@ -6478,6 +6495,54 @@ Transform:
   - {fileID: 678544073}
   m_Father: {fileID: 1060152017}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1656009610
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1656009611}
+  - component: {fileID: 1656009612}
+  m_Layer: 0
+  m_Name: WholeInventoryHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1656009611
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656009610}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 97519267}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1656009612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656009610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e658f1248d06bac49b9401d86c9c4645, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _toolbarModel: {fileID: 1278371774}
+  _equipmentModel: {fileID: 2121604065}
+  _itemListHandler:
+    _itemListScriptableObject: {fileID: 11400000, guid: 61bc246e8fcda2f429b089224cb29877, type: 2}
 --- !u!1001 &1657288158
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8028,6 +8093,8 @@ MonoBehaviour:
   _openItemMenu: {fileID: 947219246}
   _closeEquipmentMenu: {fileID: 606637529}
   _itemMenuInputController: {fileID: 1274836500}
+  _itemMenuController: {fileID: 425336415}
+  _wholeInventoryHandler: {fileID: 1656009612}
 --- !u!4 &2051325908
 Transform:
   m_ObjectHideFlags: 0
@@ -8317,17 +8384,6 @@ MonoBehaviour:
   _inventoryData:
     _itemListHandler:
       _itemListScriptableObject: {fileID: 11400000, guid: 61bc246e8fcda2f429b089224cb29877, type: 2}
---- !u!114 &2125028464 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9096096670314690107, guid: 75c11b7a5f6f2c74abf0255f9e436fe1, type: 3}
-  m_PrefabInstance: {fileID: 1054996673}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2135837903
 PrefabInstance:
   m_ObjectHideFlags: 0
