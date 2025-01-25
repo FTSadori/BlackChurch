@@ -19,14 +19,6 @@ namespace Client.Runtime.Game.Mechanics.Inventory
                     UpdateInventory();
                 else
                     Debug.Log("Not enough space");
-                if (_equipmentModel.InventoryData.TryAddItem("StupidSword", 1))
-                    UpdateInventory();
-                else
-                    Debug.Log("Not enough space");
-                if (_equipmentModel.InventoryData.TryAddItem("StupidSword", 1))
-                    UpdateInventory();
-                else
-                    Debug.Log("Not enough space");
             }
         }
 

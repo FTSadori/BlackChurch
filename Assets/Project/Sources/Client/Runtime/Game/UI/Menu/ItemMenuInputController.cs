@@ -37,18 +37,27 @@ namespace Client.Runtime.Game.UI.Menu
             }
             else if (Input.GetKeyDown(KeyCode.Z))
             {
-                _openCraftMenu.Execute();
-                _menuController.Push(_craftMenuInputController);
+                if (_itemMenuController.GetItemData().craftButtonActive)
+                {
+                    _openCraftMenu.Execute();
+                    _menuController.Push(_craftMenuInputController);
+                }
             }
             else if (Input.GetKeyDown(KeyCode.X))
             {
-                _closeItemMenu.Execute();
-                _menuController.Pop();
+                if (_itemMenuController.GetItemData().useButtonActive)
+                {
+                    _closeItemMenu.Execute();
+                    _menuController.Pop();
+                }
             }
             else if (Input.GetKeyDown(KeyCode.C))
             {
-                _closeItemMenu.Execute();
-                _menuController.Pop();
+                if (_itemMenuController.GetItemData().discardButtonActive)
+                {
+                    _closeItemMenu.Execute();
+                    _menuController.Pop();
+                }
             }
             else
             {
@@ -72,5 +81,7 @@ namespace Client.Runtime.Game.UI.Menu
                 }
             }
         }
+
+        public SlotMenu GetAssociatedSlotMenu() => SlotMenu.ItemMenu;
     }
 }

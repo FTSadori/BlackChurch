@@ -37,13 +37,18 @@ namespace Client.Runtime.Game.Mechanics.Inventory
 
         private List<string> listOfCraftables = new();
 
+        private ItemData currentItemData;
+
         public string GetCurrentId() => currentId;
 
         public List<string> GetListOfCraftables() => listOfCraftables;
 
+        public ItemData GetItemData() => currentItemData;
+
         public void Set(ItemData itemData)
         {
             currentId = itemData.id;
+            currentItemData = itemData;
 
             _bigItemSlotController.Set(itemData.id, 1);
             _nameField.text = itemData.nameId;
@@ -69,7 +74,9 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             {
                 var obj = Instantiate(_prefabOfSlot, _contentOfCraftField);
                 obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(50f + 90f * i, 0);
-                obj.GetComponentInChildren<ItemSlotController>().Set(list[i], 1);
+                var controller = obj.GetComponentInChildren<ItemSlotController>();
+                controller.Set(list[i], 1);
+                controller.SetHelpButtonText((i + 1 <= 9) ? (i + 1).ToString() : "");
             }
 
             _contentOfCraftField.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);

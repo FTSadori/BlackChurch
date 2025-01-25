@@ -13,6 +13,14 @@ using Client.Runtime.Game.Mechanics.Inventory;
 
 namespace Client.Runtime.Game.UI
 {
+    public enum SlotMenu
+    {
+        Toolbar,
+        EquipableMenu,
+        ItemMenu,
+        CraftMenu,
+    }
+
     public sealed class ItemSlotController : MonoBehaviour
     {
         [SerializeField] ItemListHandler _itemListHandler;
@@ -22,6 +30,15 @@ namespace Client.Runtime.Game.UI
         [SerializeField] Image _itemImage;
         [SerializeField] GameObject _itemImageObject;
         [SerializeField] TMP_Text _countText;
+        [SerializeField] SlotMenu _slotMenu;
+        [SerializeField] TMP_Text _helpButtonText;
+
+        public SlotMenu GetSlotMenu() => _slotMenu;
+
+        public void SetHelpButtonText(string text)
+        {
+            _helpButtonText.text = text;
+        }
 
         public void Set(string id, int count)
         {

@@ -30,3 +30,4 @@ MonoBehaviour:
     speedBuff: 0
     jumpBuff: 0
     attackSpeed: 0
+  weaponType: 1

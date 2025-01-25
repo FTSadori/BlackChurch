@@ -55,5 +55,7 @@ namespace Client.Runtime.Game.UI.Menu
                 }
             }
         }
+
+        public SlotMenu GetAssociatedSlotMenu() => SlotMenu.Toolbar;
     }
 }

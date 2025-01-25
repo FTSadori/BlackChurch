@@ -10,7 +10,8 @@ namespace Client.Runtime.Game.UI.Menu
     public sealed class MenuController : MonoBehaviour
     {
         [SerializeField] private NoMenuInputController _noMenuInputController;
-        private Stack<IMenuInputController> _menuStack = new();
+        [SerializeField] private CanvasCursorController _cursorController;
+        private readonly Stack<IMenuInputController> _menuStack = new();
 
         private void Awake() 
         {
@@ -25,11 +26,13 @@ namespace Client.Runtime.Game.UI.Menu
         public void Push(IMenuInputController menuInputController)
         {
             _menuStack.Push(menuInputController);
+            _cursorController.SetCurrentSlotMenu(menuInputController.GetAssociatedSlotMenu());
         }
 
         public void Pop()
         {
             _menuStack.Pop();
+            _cursorController.SetCurrentSlotMenu(_menuStack.Peek().GetAssociatedSlotMenu());
         }
     }
 }

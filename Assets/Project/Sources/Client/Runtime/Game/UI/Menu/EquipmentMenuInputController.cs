@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Client.Runtime.Framework.Unity.MenuInput;
 using Client.Runtime.Game.Mechanics.Inventory;
+using Client.Runtime.Game.UI;
 using Client.Runtime.Game.UI.Commands;
 using Client.Runtime.Game.UI.Menu;
 using UnityEngine;
@@ -54,5 +55,7 @@ namespace BlackChurch.Assets.Project.Sources.Client.Runtime.Game.UI.Menu
                 }
             }
         }
+
+        public SlotMenu GetAssociatedSlotMenu() => SlotMenu.EquipableMenu;
     }
 }

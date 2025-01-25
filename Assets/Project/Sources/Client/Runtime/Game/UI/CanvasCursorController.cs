@@ -10,6 +10,16 @@ namespace Client.Runtime.Game.UI
     {
         [SerializeField] RectTransform _cursorRectTransform;
         [SerializeField] RectTransform _canvasRectTransform;
+        
+        public void SetCurrentSlotMenu(SlotMenu slotMenu)
+        {
+            _currentSlotMenu = slotMenu;
+            _lastSlotController?.Deselect();
+            _lastSlotController = null;
+        }
+        private SlotMenu _currentSlotMenu;
+
+        private ItemSlotController _lastSlotController = null;
 
         private void Awake() {
             //Cursor.visible = false;
@@ -25,14 +35,21 @@ namespace Client.Runtime.Game.UI
         private void OnTriggerEnter2D(Collider2D other) {
             if (other.CompareTag("Slots"))
             {
-                other.gameObject.GetComponent<ItemSlotController>().Select();
+                var slot = other.gameObject.GetComponent<ItemSlotController>();
+                if (slot.GetSlotMenu() == _currentSlotMenu)
+                {
+                    _lastSlotController = slot;
+                    slot.Select();
+                }
             }
         }
 
         private void OnTriggerExit2D(Collider2D other) {
             if (other.CompareTag("Slots"))
             {
-                other.gameObject.GetComponent<ItemSlotController>().Deselect();                
+                var slot = other.gameObject.GetComponent<ItemSlotController>();
+                slot.Deselect();
+                _lastSlotController = null;
             }
         }
     }

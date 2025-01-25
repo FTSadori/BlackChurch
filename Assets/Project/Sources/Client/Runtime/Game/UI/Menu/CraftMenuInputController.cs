@@ -41,20 +41,25 @@ namespace Client.Runtime.Game.UI.Menu
             {
                 if (Input.GetKeyDown(KeyCode.Alpha1))
                 {
+                    _closeCraftMenu.Execute();
                     _menuController.Pop();
                     _itemMenuController.Set(_wholeInventoryHandler.GetItemData(_itemMenuController.GetCurrentId()));
                 }
                 else if (Input.GetKeyDown(KeyCode.Alpha2))
                 {
+                    _closeCraftMenu.Execute();
                     _menuController.Pop();
                     _itemMenuController.Set(_wholeInventoryHandler.GetItemData(_craftMenuController.GetCurrentMaterial1()));
                 }
                 else if (Input.GetKeyDown(KeyCode.Alpha3))
                 {
+                    _closeCraftMenu.Execute();
                     _menuController.Pop();
                     _itemMenuController.Set(_wholeInventoryHandler.GetItemData(_craftMenuController.GetCurrentMaterial2()));
                 }
             }
         }
+
+        public SlotMenu GetAssociatedSlotMenu() => SlotMenu.CraftMenu;
     }
 }
