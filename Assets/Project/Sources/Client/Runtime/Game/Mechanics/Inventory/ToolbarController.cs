@@ -13,45 +13,16 @@ namespace Client.Runtime.Game.Mechanics.Inventory
         [SerializeField] private ToolbarModel _toolbarModel;
 
         private void Update() {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.N))
             {
                 if (_toolbarModel.InventoryData.TryAddItem("Thing", 1))
                     UpdateInventory();
-                else
-                    Debug.Log("Not enough space");
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
                 if (_toolbarModel.InventoryData.TryAddItem("Chair", 1))
                     UpdateInventory();
-                else
-                    Debug.Log("Not enough space");
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
                 if (_toolbarModel.InventoryData.TryAddItem("StupidSword", 1))
                     UpdateInventory();
-                else
-                    Debug.Log("Not enough space");
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
                 if (_toolbarModel.InventoryData.TryAddItem("Trash", 3))
                     UpdateInventory();
-                else
-                    Debug.Log("Not enough space");
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha5))
-            {
-                Debug.Log(_toolbarModel.InventoryData.GetItemCount("RedPorridge"));
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha6))
-            {
-                Debug.Log(_toolbarModel.InventoryData.GetItemCount("StupidSword"));
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha7))
-            {
-                Debug.Log(_toolbarModel.InventoryData.GetItemCount("Trash"));
             }
         }
 

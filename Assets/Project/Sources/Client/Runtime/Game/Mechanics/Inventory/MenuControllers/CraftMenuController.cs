@@ -22,16 +22,15 @@ namespace Client.Runtime.Game.Mechanics.Inventory
         [SerializeField] private ItemSlotController _result;
         [SerializeField] private Button _craftButton;
         
+        private string currentMaterial0 = "";
         private string currentMaterial1 = "";
-        private string currentMaterial2 = "";
 
-        public string GetCurrentMaterial1() => currentMaterial1;
-        public string GetCurrentMaterial2() => currentMaterial2;        
+        public string GetCurrentMaterial(int num) => (num == 0) ? currentMaterial0 : currentMaterial1;
 
         public void Set(ItemData itemData)
         {
-            currentMaterial1 = itemData.leftMaterialId;
-            currentMaterial2 = itemData.rightMaterialId;
+            currentMaterial0 = itemData.leftMaterialId;
+            currentMaterial1 = itemData.rightMaterialId;
 
             _result.Set(itemData.id, 1);
             _leftMaterial.Set(itemData.leftMaterialId, 1);

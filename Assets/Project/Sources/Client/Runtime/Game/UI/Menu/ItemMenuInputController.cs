@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 using System.Threading.Tasks;
+using Client.Runtime.Framework.Unity;
 using Client.Runtime.Framework.Unity.MenuInput;
 using Client.Runtime.Game.Mechanics.Inventory;
 using Client.Runtime.Game.UI.Commands;
@@ -12,75 +13,26 @@ namespace Client.Runtime.Game.UI.Menu
 {
     public sealed class ItemMenuInputController : MonoBehaviour, IMenuInputController
     {
-        [SerializeField] MenuController _menuController;
-        [SerializeField] CloseMenuCommand _closeItemMenu;
-        [SerializeField] OpenMenuCommand _openCraftMenu;
-        [SerializeField] OpenMenuCommand _openItemMenu;
-        [SerializeField] CraftMenuInputController _craftMenuInputController;
-        [SerializeField] CraftMenuController _craftMenuController;
-        [SerializeField] ItemMenuController _itemMenuController;
-        [SerializeField] ItemListHandler _itemListHandler;
-        [SerializeField] WholeInventoryHandler _wholeInventoryHandler;
+        [SerializeField] private List<SerializableNotUpdateKeyDownCommand> _keyDownCommands = new();
+        public List<SerializableNotUpdateKeyDownCommand> KeyDownCommands => _keyDownCommands;
 
-        private readonly List<KeyCode> _usedInCraftCodes = new(){
-            KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3,
-            KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6,
-            KeyCode.Alpha7
-        };
-
-        public void CheckInput()
+        private int _counter = 0;
+        public void AddToList(SerializableNotUpdateKeyDownCommand command)
         {
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Q))
-            {
-                _closeItemMenu.Execute();
-                _menuController.Pop();
-            }
-            else if (Input.GetKeyDown(KeyCode.Z))
-            {
-                if (_itemMenuController.GetItemData().craftButtonActive)
-                {
-                    _openCraftMenu.Execute();
-                    _menuController.Push(_craftMenuInputController);
-                }
-            }
-            else if (Input.GetKeyDown(KeyCode.X))
-            {
-                if (_itemMenuController.GetItemData().useButtonActive)
-                {
-                    _closeItemMenu.Execute();
-                    _menuController.Pop();
-                }
-            }
-            else if (Input.GetKeyDown(KeyCode.C))
-            {
-                if (_itemMenuController.GetItemData().discardButtonActive)
-                {
-                    _closeItemMenu.Execute();
-                    _menuController.Pop();
-                }
-            }
-            else
-            {
-                foreach (KeyCode keyCode in _usedInCraftCodes)
-                {
-                    TryOpenItemMenu(keyCode);
-                }
-            }
+            _counter += 1;
+            _keyDownCommands.Add(command);
+            Debug.Log("Added command. Now counter is " + _counter + ". Now list is " + _keyDownCommands.Count + " items long");
         }
 
-        private void TryOpenItemMenu(KeyCode keyCode)
+        public void ClearLastCommands()
         {
-            if (Input.GetKeyDown(keyCode))
-            {
-                var list = _itemMenuController.GetListOfCraftables();
-
-                var slotNum = keyCode - KeyCode.Alpha1;
-                if (slotNum < list.Count)
-                {
-                    _itemMenuController.Set(_wholeInventoryHandler.GetItemData(list[slotNum]));
-                }
-            }
+            _keyDownCommands.RemoveRange(_keyDownCommands.Count - _counter, _counter);
+            _counter = 0;
+            Debug.Log("Removed commands. Now counter is " + _counter + ". Now list is " + _keyDownCommands.Count + " items long");
         }
+        
+        private bool _isInputActive = false;
+        public bool IsInputActive { get => _isInputActive; set => _isInputActive = value; }
 
         public SlotMenu GetAssociatedSlotMenu() => SlotMenu.ItemMenu;
     }

@@ -8,7 +8,8 @@ namespace Client.Runtime.Framework.Unity.MenuInput
 {
     public interface IMenuInputController
     {
+        abstract public bool IsInputActive { get; set; }
+        abstract public List<SerializableNotUpdateKeyDownCommand> KeyDownCommands { get; }
         abstract public SlotMenu GetAssociatedSlotMenu();
-        abstract public void CheckInput();
     }
 }

@@ -16,22 +16,30 @@ namespace Client.Runtime.Game.UI.Menu
         private void Awake() 
         {
             _menuStack.Push(_noMenuInputController);
+            _noMenuInputController.IsInputActive = true;
         }
 
         private void Update() 
         {
-            _menuStack.Peek().CheckInput();
+            foreach (var command in _menuStack.Peek().KeyDownCommands)
+            {
+                if (command.Execute()) break;
+            }
         }
 
         public void Push(IMenuInputController menuInputController)
         {
+            _menuStack.Peek().IsInputActive = false;
+            menuInputController.IsInputActive = true;
             _menuStack.Push(menuInputController);
             _cursorController.SetCurrentSlotMenu(menuInputController.GetAssociatedSlotMenu());
         }
 
         public void Pop()
         {
+            _menuStack.Peek().IsInputActive = false;
             _menuStack.Pop();
+            _menuStack.Peek().IsInputActive = true;
             _cursorController.SetCurrentSlotMenu(_menuStack.Peek().GetAssociatedSlotMenu());
         }
     }

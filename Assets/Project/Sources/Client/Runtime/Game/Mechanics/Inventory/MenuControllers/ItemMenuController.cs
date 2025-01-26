@@ -9,6 +9,9 @@ using TMPro;
 using Client.Runtime.Game.ScriptableObjects;
 using UnityEngine.UI;
 using Client.Runtime.Game.Mechanics.Inventory.Data;
+using Client.Runtime.Game.UI.Commands.InputCommands;
+using Client.Runtime.Framework.Unity;
+using Client.Runtime.Game.UI.Menu;
 
 namespace Client.Runtime.Game.Mechanics.Inventory
 {
@@ -17,6 +20,9 @@ namespace Client.Runtime.Game.Mechanics.Inventory
         [SerializeField] private ItemListHandler _itemListHandler;
         [SerializeField] private RarityColorsScriptableObject _rarityColorsScriptableObject;
         [SerializeField] private CraftMenuController _craftMenuController;
+        [SerializeField] private ItemMenuInputController _itemMenuInputController;
+
+        [SerializeField] private WholeInventoryHandler _wholeInventoryHandler;
 
 
         [Header("MenuComponents")]
@@ -32,6 +38,8 @@ namespace Client.Runtime.Game.Mechanics.Inventory
 
         [SerializeField] private RectTransform _contentOfCraftField;
         [SerializeField] private GameObject _prefabOfSlot;
+        [SerializeField] private GameObject _prefabOfButton;
+        
 
         private string currentId = "";
 
@@ -70,6 +78,7 @@ namespace Client.Runtime.Game.Mechanics.Inventory
                 Destroy(_contentOfCraftField.GetChild(i).gameObject);
             }
 
+            _itemMenuInputController.ClearLastCommands();
             for (int i = 0; i < list.Count; ++i)
             {
                 var obj = Instantiate(_prefabOfSlot, _contentOfCraftField);
@@ -77,6 +86,14 @@ namespace Client.Runtime.Game.Mechanics.Inventory
                 var controller = obj.GetComponentInChildren<ItemSlotController>();
                 controller.Set(list[i], 1);
                 controller.SetHelpButtonText((i + 1 <= 9) ? (i + 1).ToString() : "");
+
+                var buttonObj = Instantiate(_prefabOfButton, obj.GetComponent<RectTransform>());
+                buttonObj.GetComponent<OpenRecipesSlotInputCommand>().Set(this, i, _wholeInventoryHandler);
+                obj.GetComponentInChildren<SerializableNotUpdateKeyDownCommand>().Set(
+                    (KeyCode)((int)KeyCode.Alpha1 + i),
+                    obj.GetComponentInChildren<OpenRecipesSlotInputCommand>());
+
+                _itemMenuInputController.AddToList(obj.GetComponentInChildren<SerializableNotUpdateKeyDownCommand>());
             }
 
             _contentOfCraftField.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
