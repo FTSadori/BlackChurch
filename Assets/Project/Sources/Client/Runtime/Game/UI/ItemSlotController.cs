@@ -10,6 +10,7 @@ using UnityEngine.Assertions;
 using UnityEngine.UI;
 using TMPro;
 using Client.Runtime.Game.Mechanics.Inventory;
+using Client.Runtime.Framework.Unity;
 
 namespace Client.Runtime.Game.UI
 {
@@ -19,6 +20,7 @@ namespace Client.Runtime.Game.UI
         EquipableMenu,
         ItemMenu,
         CraftMenu,
+        StorageMenu,
     }
 
     public sealed class ItemSlotController : MonoBehaviour
@@ -31,17 +33,30 @@ namespace Client.Runtime.Game.UI
         [SerializeField] GameObject _itemImageObject;
         [SerializeField] TMP_Text _countText;
         [SerializeField] SlotMenu _slotMenu;
+        [SerializeField] GameObject _helpButtonObj;
         [SerializeField] TMP_Text _helpButtonText;
+        [SerializeField] SerializableButtonCommand _buttonCommand;
 
         public SlotMenu GetSlotMenu() => _slotMenu;
 
+        public void SetNewButtonCommand(MonoCommand command)
+        {
+            _buttonCommand._command = command;
+        }
+
         public void SetHelpButtonText(string text)
         {
+            _helpButtonObj.SetActive(text != "");
             _helpButtonText.text = text;
         }
 
         public void Set(string id, int count)
         {
+            if (id == "")
+            {
+                Clear();
+                return;
+            }
             var item = _itemListHandler.GetObjectById(id);
 
             _itemImageObject.SetActive(true);

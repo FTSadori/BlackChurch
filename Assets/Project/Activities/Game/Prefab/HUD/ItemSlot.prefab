@@ -735,7 +735,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5183040124847469112
 CanvasRenderer:
@@ -788,7 +788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -892,7 +892,9 @@ MonoBehaviour:
   _itemImageObject: {fileID: 4999945472616812860}
   _countText: {fileID: 3987154313179908036}
   _slotMenu: 0
+  _helpButtonObj: {fileID: 8060385304348543645}
   _helpButtonText: {fileID: 5656266818244907796}
+  _buttonCommand: {fileID: 4004290311878863327}
 --- !u!61 &7663976069171661701
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1153,3 +1155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8060385304348543645 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3364613568148593769, guid: 1563257de9f0de04c82fb0c3b6f90b02, type: 3}
+  m_PrefabInstance: {fileID: 4714634993841575668}
+  m_PrefabAsset: {fileID: 0}

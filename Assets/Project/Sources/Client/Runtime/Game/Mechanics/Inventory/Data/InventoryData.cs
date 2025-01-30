@@ -28,6 +28,18 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             return _inventory[number];
         }
 
+        public int Count()
+        {
+            return _inventory.Count;
+        }
+
+        public void ClearSlot(int number)
+        {
+            var t = _inventory[number].type;
+            _inventory.Add(new InventoryDataRecord("", 0, t));
+            _inventory.RemoveAt(number);
+        }
+
         public bool IsSlotEmpty(int number)
         {
             return _inventory[number].id == "";

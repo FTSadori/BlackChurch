@@ -9,20 +9,20 @@ namespace Client.Runtime.Game.Player
 {
     public sealed class SelectorController : MonoBehaviour
     {
-        private GameObject _lastGameObject = null;
+        private Stack<ISelectable> _selectables = new();
         public ISelectable LastSelectable { get 
             {
-                if (_lastGameObject == null)
+                if (_selectables.Count == 0)
                     return null;
-                return _lastGameObject.GetComponent<ISelectable>(); 
+                return _selectables.Peek(); 
             } 
         }
 
         private void OnTriggerEnter2D(Collider2D other) {
             if (other.gameObject.CompareTag("Selectable"))
             {
-                if (_lastGameObject != null) LastSelectable.Deselect();
-                _lastGameObject = other.gameObject;
+                LastSelectable?.Deselect();
+                _selectables.Push(other.gameObject.GetComponent<ISelectable>());
                 LastSelectable.Select();
             }
         }
@@ -30,11 +30,9 @@ namespace Client.Runtime.Game.Player
         private void OnTriggerExit2D(Collider2D other) {
             if (other.gameObject.CompareTag("Selectable"))
             {
-                if (other.gameObject.Equals(_lastGameObject))
-                {
-                    LastSelectable.Deselect();
-                    _lastGameObject = null;
-                }
+                LastSelectable.Deselect();
+                _selectables.Pop();
+                LastSelectable?.Select();
             }    
         }
     }

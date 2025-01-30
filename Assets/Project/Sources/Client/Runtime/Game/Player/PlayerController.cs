@@ -21,6 +21,11 @@ namespace Client.Runtime.Game.Player
         [SerializeField] private float _ungroundedJumpTime = 0.2f;
         [SerializeField] private float _jumpCommandTime = 0.2f;
 
+        public bool CanMove = true;
+        public bool CompletelyPaused = false;
+
+        public bool CanGoDown => CanMove && !CompletelyPaused && Input.GetKey(KeyCode.S);
+
         private float _ungroundedJumpTimer = -1f;
         private float _jumpCommandTimer = -1f;
         
@@ -35,16 +40,24 @@ namespace Client.Runtime.Game.Player
         }
 
         private void Update() {
+            if (CompletelyPaused) return;
+
             _ungroundedJumpTimer -= Time.deltaTime;
             _jumpCommandTimer -= Time.deltaTime;
 
-            CheckJump();
+            if (CanMove)
+            {
+                CheckJump();
+                CheckInteraction();
+            }
             CheckFalling();
-            CheckInteraction();
         }
 
         private void FixedUpdate() {
-            CheckHorizontalMove();    
+            if (CanMove && !CompletelyPaused)
+            {
+                CheckHorizontalMove();
+            }
         }
 
         private void CheckInteraction() {

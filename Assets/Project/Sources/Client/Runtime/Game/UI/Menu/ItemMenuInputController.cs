@@ -21,14 +21,12 @@ namespace Client.Runtime.Game.UI.Menu
         {
             _counter += 1;
             _keyDownCommands.Add(command);
-            Debug.Log("Added command. Now counter is " + _counter + ". Now list is " + _keyDownCommands.Count + " items long");
         }
 
         public void ClearLastCommands()
         {
             _keyDownCommands.RemoveRange(_keyDownCommands.Count - _counter, _counter);
             _counter = 0;
-            Debug.Log("Removed commands. Now counter is " + _counter + ". Now list is " + _keyDownCommands.Count + " items long");
         }
         
         private bool _isInputActive = false;

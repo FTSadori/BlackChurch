@@ -9,7 +9,7 @@ namespace Client.Runtime.Framework.Unity
 {
     public sealed class SerializableButtonCommand : ButtonCommand
     {
-        [SerializeField] MonoCommand _command;
+        [SerializeField] public MonoCommand _command;
 
         public override void Execute()
         {

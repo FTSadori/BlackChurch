@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Client.Runtime.Framework.Unity.MenuInput;
+using Client.Runtime.Game.Mechanics.Inventory;
+using Client.Runtime.Game.Player;
 using UnityEngine;
 
 namespace Client.Runtime.Game.UI.Menu
 {
     public sealed class MenuController : MonoBehaviour
     {
+        [SerializeField] private PlayerController _playerController;
         [SerializeField] private NoMenuInputController _noMenuInputController;
         [SerializeField] private CanvasCursorController _cursorController;
         private readonly Stack<IMenuInputController> _menuStack = new();
@@ -29,6 +32,8 @@ namespace Client.Runtime.Game.UI.Menu
 
         public void Push(IMenuInputController menuInputController)
         {
+            _playerController.CanMove = false;
+
             _menuStack.Peek().IsInputActive = false;
             menuInputController.IsInputActive = true;
             _menuStack.Push(menuInputController);
@@ -41,6 +46,11 @@ namespace Client.Runtime.Game.UI.Menu
             _menuStack.Pop();
             _menuStack.Peek().IsInputActive = true;
             _cursorController.SetCurrentSlotMenu(_menuStack.Peek().GetAssociatedSlotMenu());
+
+            if (_menuStack.Count == 1)
+            {
+                _playerController.CanMove = true;
+            }
         }
     }
 }

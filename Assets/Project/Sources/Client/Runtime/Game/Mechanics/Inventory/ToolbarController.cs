@@ -12,6 +12,14 @@ namespace Client.Runtime.Game.Mechanics.Inventory
         [SerializeField] private ItemSlotController[] _slots = new ItemSlotController[7];
         [SerializeField] private ToolbarModel _toolbarModel;
 
+        public void SetHelpNumberVisibility(bool visible)
+        {
+            for (int i = 0; i < _slots.Length; ++i)
+            {
+                _slots[i].SetHelpButtonText(visible ? (i+1).ToString() : "");
+            }
+        }
+
         private void Update() {
             if (Input.GetKeyDown(KeyCode.N))
             {
@@ -30,10 +38,7 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             for (int i = 0; i < _slots.Length; i++)
             {
                 var data = _toolbarModel.InventoryData.GetBySlotNumber(i);
-                if (data.id != "")
-                {
-                    _slots[i].Set(data.id, data.quantity);
-                }
+                _slots[i].Set(data.id, data.quantity);
             }
         }
     }

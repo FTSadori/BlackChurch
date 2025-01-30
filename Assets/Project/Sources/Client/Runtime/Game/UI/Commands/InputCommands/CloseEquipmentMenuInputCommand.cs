@@ -9,15 +9,17 @@ using UnityEngine;
 
 namespace Client.Runtime.Game.UI.Commands.InputCommands
 {
-    public sealed class CloseLastMenuInputCommand : MonoCommand
+    public sealed class CloseEquipmentMenuInputCommand : MonoCommand
     {
         [SerializeField] MenuController _menuController;
         [SerializeField] CloseMenuCommand _closeMenuCommand;
+        [SerializeField] ToolbarController _toolbarController;        
 
         public override void Execute()
         {
             _closeMenuCommand.Execute();
             _menuController.Pop();
+            _toolbarController.SetHelpNumberVisibility(true);
         }
     }
 }
