@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Client.Runtime.Game.UI.AnimationControllers;
 using Client.Runtime.Game.UI.Commands;
 using Client.Runtime.Game.UI.Commands.InputCommands;
 using UnityEngine;
@@ -16,17 +17,22 @@ namespace Client.Runtime.Game.Environment.Storage
         [SerializeField] string _name;
         [SerializeField] bool _canPutIn;
 
+        public HelpBoxType HelpBoxType => HelpBoxType.ONE_BUTTON;
+
         public void Deselect()
         {
             _selectionTexture.SetActive(false);
         }
 
-        public void Interact()
+        public void Interact(InteractType interactType)
         {
-            _openStorageMenuInputCommand._inventoryDataToOpen = _storageModel.InventoryData;
-            _openStorageMenuInputCommand._storageName = _name;
-            _openStorageMenuInputCommand._canPutIn = _canPutIn;
-            _openStorageMenuInputCommand.Execute();
+            if (interactType == InteractType.First)
+            {
+                _openStorageMenuInputCommand._inventoryDataToOpen = _storageModel.InventoryData;
+                _openStorageMenuInputCommand._storageName = _name;
+                _openStorageMenuInputCommand._canPutIn = _canPutIn;
+                _openStorageMenuInputCommand.Execute();
+            }
         }
 
         public void Select()

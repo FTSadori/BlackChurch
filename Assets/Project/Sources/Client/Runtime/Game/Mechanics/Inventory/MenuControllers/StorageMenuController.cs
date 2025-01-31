@@ -22,8 +22,6 @@ namespace Client.Runtime.Game.Mechanics.Inventory.MenuControllers
         private List<ItemSlotController> _slotControllers = new();
 
         private void Awake() {
-            Debug.Log(_storageTitle.text);
-
             float startX = -210f;
             Vector3 currentPoint = new (-210f, 170f);
             float delta = 140f;

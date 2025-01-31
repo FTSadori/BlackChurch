@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Client.Runtime.Game.Environment;
 using UnityEngine;
 
 namespace Client.Runtime.Game.Player
@@ -63,7 +64,11 @@ namespace Client.Runtime.Game.Player
         private void CheckInteraction() {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                _selectorController.LastSelectable?.Interact();
+                _selectorController.LastSelectable?.Interact(InteractType.First);
+            }
+            else if (Input.GetKeyDown(KeyCode.R))
+            {
+                _selectorController.LastSelectable?.Interact(InteractType.Second);
             }
         }
 
