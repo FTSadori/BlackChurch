@@ -12,16 +12,6 @@ namespace Client.Runtime.Game.Mechanics.Inventory
         [SerializeField] private ItemSlotController[] _slots = new ItemSlotController[7];
         [SerializeField] private EquipmentModel _equipmentModel;
 
-        private void Update() {
-            if (Input.GetKeyDown(KeyCode.M))
-            {
-                if (_equipmentModel.InventoryData.TryAddItem("StupidSword", 1))
-                    UpdateInventory();
-                else
-                    Debug.Log("Not enough space");
-            }
-        }
-
         public void UpdateInventory() {
             for (int i = 0; i < _slots.Length; i++)
             {

@@ -33,6 +33,37 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             return _inventory.Count;
         }
 
+        public void RemoveItemAtSlot(int slotNumber, string id, int quantity, bool withClearSlots)
+        {
+            int totalCount = 0;
+            for (int i = slotNumber; i < _inventory.Count; ++i)
+            {
+                if (_inventory[i].id == id)
+                {
+                    totalCount += _inventory[i].quantity;
+                    _inventory[i].quantity = 0;
+                }
+            }
+            totalCount -= Mathf.Min(quantity, totalCount);
+            AddItem(id, totalCount);
+
+            if (withClearSlots)
+            {
+                int cleared = 0;
+                for (int i = 0; i < _inventory.Count - cleared; ++i)
+                {
+                    if (_inventory[i].id == id && _inventory[i].quantity == 0)
+                    {
+                        cleared += 1;
+                        ClearSlot(i);
+                        --i;
+                    }
+                }
+            }
+
+            return;
+        }
+
         public void ClearSlot(int number)
         {
             var t = _inventory[number].type;
@@ -45,12 +76,28 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             return _inventory[number].id == "";
         }
 
-        public bool TryAddItem(string id, int quantity)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="quantity"></param>
+        /// <returns>The amount that left due to lack of free space</returns>
+        public int AddItem(string id, int quantity)
+        {
+            List<int> indexes = GetIndexesOfSuitableSlotsFor(id, out int maxFreeSpace);
+            int validQuantity = Mathf.Min(quantity, maxFreeSpace);
+            if (!TryAddItem(id, validQuantity, indexes))
+            {
+                return quantity;
+            }
+            return quantity - validQuantity;
+        }
+
+        private bool TryAddItem(string id, int quantity, List<int> indexes)
         {
             if (quantity == 0) return false;
 
-            List<int> indexes;
-            if ((indexes = GetIndexesOfSuitableSlotsFor(id, quantity)) != null)
+            if (indexes != null)
             {
                 int maxStack = _itemListHandler.GetObjectById(id).stack;
                 foreach (var index in indexes)
@@ -64,7 +111,7 @@ namespace Client.Runtime.Game.Mechanics.Inventory
                     }
                     _inventory[index].quantity += freeSpace;
                     _inventory[index].id = id;
-                    quantity -= freeSpace; 
+                    quantity -= freeSpace;
                 }
             }
             return false;
@@ -83,7 +130,7 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             return count;
         }
 
-        private List<int> GetIndexesOfSuitableSlotsFor(string id, int quantity)
+        private List<int> GetIndexesOfSuitableSlotsFor(string id, out int maxFreeSpace)
         {
             int maxStack = _itemListHandler.GetObjectById(id).stack;
             int freeSpace = 0;
@@ -108,8 +155,9 @@ namespace Client.Runtime.Game.Mechanics.Inventory
                     }
                 }
             }
+            maxFreeSpace = freeSpace;
 
-            return (freeSpace >= quantity) ? indexes : null;
+            return indexes;
         }
 
         private void AddEmptySlotOfType(SlotType type)

@@ -15,6 +15,12 @@ using Client.Runtime.Game.UI.Menu;
 
 namespace Client.Runtime.Game.Mechanics.Inventory
 {
+    public enum UseButtonVariant
+    {
+        USE,
+        UNEQUIP,
+    }
+
     public sealed class ItemMenuController : MonoBehaviour
     {
         [SerializeField] private ItemListHandler _itemListHandler;
@@ -31,6 +37,7 @@ namespace Client.Runtime.Game.Mechanics.Inventory
         [SerializeField] private TMP_Text _typeField;
         [SerializeField] private TMP_Text _rarityField;
         [SerializeField] private TMP_Text _descriptionField;
+        [SerializeField] private TMP_Text _useButtonTextField;
 
         [SerializeField] private Button _craftButton;
         [SerializeField] private Button _useOrEquipButton;
@@ -46,6 +53,7 @@ namespace Client.Runtime.Game.Mechanics.Inventory
         private List<string> listOfCraftables = new();
 
         private ItemData currentItemData;
+        private UseButtonVariant currentUseButtonVariant;
 
         public string GetCurrentId() => currentId;
 
@@ -53,8 +61,28 @@ namespace Client.Runtime.Game.Mechanics.Inventory
 
         public ItemData GetItemData() => currentItemData;
 
-        public void Set(ItemData itemData)
+        private void SetUseButtonText(UseButtonVariant useButtonVariant)
         {
+            switch (useButtonVariant)
+            {
+                case UseButtonVariant.USE:
+                    _useButtonTextField.text = "button.use";
+                    break;
+                case UseButtonVariant.UNEQUIP:
+                    _useButtonTextField.text = "button.unequip";
+                    break;
+            }
+        }
+
+        public void Reset()
+        {
+            Set(_wholeInventoryHandler.GetItemData(currentId), currentUseButtonVariant);
+        }
+
+        public void Set(ItemData itemData, UseButtonVariant useButtonVariant)
+        {
+            SetUseButtonText(useButtonVariant);
+
             currentId = itemData.id;
             currentItemData = itemData;
 

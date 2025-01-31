@@ -73,12 +73,19 @@ namespace Client.Runtime.Game.Environment.TrashPile
             else if (_trashPileModel._state == TrashPileState.FOUND)
             {
                 var itemInfo = _trashPileModel.GetNextItem();
-                if (_toolbarModel.InventoryData.TryAddItem(itemInfo.id, itemInfo.quantity))
+                var left = _toolbarModel.InventoryData.AddItem(itemInfo.id, itemInfo.quantity);
+                if (left == 0)
                 {
                     _toolbarController.UpdateInventory();
                     _trashPileModel.RemoveItem();
                     _trashPileModel._state = TrashPileState.AWAITS;
                     _slotCanvas.SetActive(false);
+                }
+                else if (left != itemInfo.quantity)
+                {
+                    _toolbarController.UpdateInventory();
+                    _trashPileModel._itemRecords[0].quantity = left;
+                    _itemSlotController.Set(itemInfo.id, left);
                 }
                 else
                 {

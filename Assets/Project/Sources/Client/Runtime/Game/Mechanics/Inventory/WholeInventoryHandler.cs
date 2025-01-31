@@ -12,6 +12,8 @@ namespace Client.Runtime.Game.Mechanics.Inventory
         [SerializeField] private ToolbarModel _toolbarModel;
         [SerializeField] private EquipmentModel _equipmentModel;
         [SerializeField] private ItemListHandler _itemListHandler;
+        [SerializeField] private ToolbarController _toolbarController;
+        [SerializeField] private EquipmentController _equipmentController;
 
         public Action<string> OnItemDiscard;
         public Action<string> OnItemEquipped;
@@ -28,6 +30,84 @@ namespace Client.Runtime.Game.Mechanics.Inventory
         public bool Contains(string id, int quantity)
         {
             return _toolbarModel.InventoryData.GetItemCount(id) + _equipmentModel.InventoryData.GetItemCount(id) >= quantity;
+        }
+
+        private bool CanFitItemAfterCraft(string id)
+        {
+            for (int i = 0; i < GetToolbarInventory().Count(); ++i)
+            {
+                if (GetToolbarInventory().IsSlotEmpty(i))
+                    return true;
+            }
+
+            var itemObj = _itemListHandler.GetObjectById(id);
+            int craftQuantity = itemObj.quantity;
+            int stack = itemObj.stack;
+
+            int itemCount = GetToolbarInventory().GetItemCount(id);
+            if (itemCount != 0)
+            {
+                if (itemCount % stack + craftQuantity <= stack)
+                {
+                    return true;
+                }
+            }
+
+            string item1 = itemObj.craftsFromId1;
+            string item2 = itemObj.craftsFromId2;
+            if (item1 == item2)
+            {
+                if (GetToolbarInventory().GetItemCount(item1) == 2)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                foreach (var idToFind in new List<string>(){item1, item2})
+                {
+                    if (GetToolbarInventory().GetItemCount(idToFind) == 1)
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool TryCraftItem(string id)
+        {
+            if (!CanBeCrafted(id))
+            {
+                return false;
+            }
+
+            if (!CanFitItemAfterCraft(id))
+            {
+                return false;
+            }
+
+            var itemObj = _itemListHandler.GetObjectById(id);
+
+            foreach (var idToFind in new List<string>(){itemObj.craftsFromId1, itemObj.craftsFromId2})
+            {
+                if (GetToolbarInventory().GetItemCount(idToFind) > 0)
+                {
+                    GetToolbarInventory().RemoveItemAtSlot(0, idToFind, 1, true);
+                }
+                else
+                {
+                    GetEqupmentInventory().RemoveItemAtSlot(0, idToFind, 1, false);
+                }
+            }
+
+            GetToolbarInventory().AddItem(itemObj.id, 1);
+            return true;
+        }
+
+        public void UpdateEverything()
+        {
+            _toolbarController.UpdateInventory();
+            _equipmentController.UpdateInventory();
         }
 
         public bool CanBeCrafted(string id)

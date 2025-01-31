@@ -20,20 +20,6 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             }
         }
 
-        private void Update() {
-            if (Input.GetKeyDown(KeyCode.N))
-            {
-                if (_toolbarModel.InventoryData.TryAddItem("Thing", 1))
-                    UpdateInventory();
-                if (_toolbarModel.InventoryData.TryAddItem("Chair", 1))
-                    UpdateInventory();
-                if (_toolbarModel.InventoryData.TryAddItem("StupidSword", 1))
-                    UpdateInventory();
-                if (_toolbarModel.InventoryData.TryAddItem("Trash", 3))
-                    UpdateInventory();
-            }
-        }
-
         public void UpdateInventory() {
             for (int i = 0; i < _slots.Length; i++)
             {

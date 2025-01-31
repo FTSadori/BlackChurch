@@ -28,12 +28,21 @@ namespace Client.Runtime.Game.UI.Commands.InputCommands
             if (!_toolbarModel.InventoryData.IsSlotEmpty(_slotNum))
             {
                 var item = _toolbarModel.InventoryData.GetBySlotNumber(_slotNum);
-                if (_storageInventory.TryAddItem(item.id, item.quantity))
+                var left = _storageInventory.AddItem(item.id, item.quantity);
+                _storageMenuController.UpdateInventory(_storageInventory);
+                if (left == 0)
                 {
-                    _storageMenuController.UpdateInventory(_storageInventory);
                     _toolbarModel.InventoryData.ClearSlot(_slotNum);
-                    _toolbarController.UpdateInventory();
                 }
+                else if (left != item.quantity)
+                {
+                    _toolbarModel.InventoryData.RemoveItemAtSlot(_slotNum, item.id, item.quantity - left, true);
+                }
+                else
+                {
+                    Debug.Log("Not enough space in storage");
+                }
+                _toolbarController.UpdateInventory();
             }
         }
     }

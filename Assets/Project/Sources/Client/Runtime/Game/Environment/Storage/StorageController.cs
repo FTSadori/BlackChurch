@@ -15,7 +15,7 @@ namespace Client.Runtime.Game.Environment.Storage
         [SerializeField] OpenStorageMenuInputCommand _openStorageMenuInputCommand;
         [SerializeField] StorageModel _storageModel;
         [SerializeField] string _name;
-        [SerializeField] bool _canPutIn;
+        bool CanPutIn => _storageModel.CanPutIn;
 
         public HelpBoxType HelpBoxType => HelpBoxType.ONE_BUTTON;
 
@@ -30,7 +30,7 @@ namespace Client.Runtime.Game.Environment.Storage
             {
                 _openStorageMenuInputCommand._inventoryDataToOpen = _storageModel.InventoryData;
                 _openStorageMenuInputCommand._storageName = _name;
-                _openStorageMenuInputCommand._canPutIn = _canPutIn;
+                _openStorageMenuInputCommand._canPutIn = CanPutIn;
                 _openStorageMenuInputCommand.Execute();
             }
         }

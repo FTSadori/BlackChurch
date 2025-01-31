@@ -15,7 +15,6 @@ namespace Client.Runtime.Game.UI.Commands.InputCommands
         [SerializeField] ItemMenuController _itemMenuController;
         [SerializeField] MenuController _menuController;
         [SerializeField] CloseMenuCommand _closeCraftMenu;
-        [SerializeField] CloseMenuCommand _closeItemMenu;
 
         public override void Execute()
         {
@@ -23,9 +22,16 @@ namespace Client.Runtime.Game.UI.Commands.InputCommands
             {
                 _closeCraftMenu.Execute();
                 _menuController.Pop();
-                _closeItemMenu.Execute();
-                _menuController.Pop();
-                // todo Craft logic
+
+                if (!_wholeInventoryHandler.TryCraftItem(_itemMenuController.GetCurrentId()))
+                {
+                    Debug.Log("You don't have enough free space to craft this");
+                }
+                else
+                {
+                    _wholeInventoryHandler.UpdateEverything();
+                    _itemMenuController.Reset();
+                }
             }
         }
     }

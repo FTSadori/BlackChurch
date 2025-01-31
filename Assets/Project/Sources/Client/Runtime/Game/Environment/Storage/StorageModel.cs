@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Client.Runtime.Game.Mechanics.Inventory;
+using Client.Runtime.Game.ScriptableObjects.Storages;
 using UnityEngine;
 
 namespace Client.Runtime.Game.Environment.Storage
@@ -16,19 +17,16 @@ namespace Client.Runtime.Game.Environment.Storage
             SlotType.EVERYTHING, SlotType.EVERYTHING, SlotType.EVERYTHING, SlotType.EVERYTHING,
         });
 
+        public StorageScriptableObject _storageScriptableObject;
+        public bool CanPutIn => _storageScriptableObject.canPlayerPutItemsIn;
+
         public InventoryData InventoryData => _inventoryData;
 
         private void Awake() {
-            _inventoryData.TryAddItem("StupidSword", 1);
-            _inventoryData.TryAddItem("StupidSword", 1);
-            _inventoryData.TryAddItem("StupidSword", 1);
-            _inventoryData.TryAddItem("Trash", 3);
-            _inventoryData.TryAddItem("StupidSword", 1);
-            _inventoryData.TryAddItem("StupidSword", 1);
-            _inventoryData.TryAddItem("RedPorridge", 4);
-            _inventoryData.TryAddItem("StupidSword", 1);
-            _inventoryData.TryAddItem("StupidSword", 1);
-            _inventoryData.TryAddItem("StupidSword", 1);
+            foreach (var pair in _storageScriptableObject.items)
+            {
+                _inventoryData.AddItem(pair.key, pair.value);
+            }
         }
     }
 }

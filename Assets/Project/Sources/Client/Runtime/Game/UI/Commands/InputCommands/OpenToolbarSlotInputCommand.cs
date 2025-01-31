@@ -22,7 +22,7 @@ namespace Client.Runtime.Game.UI.Commands.InputCommands
         {
             if (!_wholeInventoryHandler.GetToolbarInventory().IsSlotEmpty(_slotNum))
             {
-                _itemMenuController.Set(_wholeInventoryHandler.GetFromToolbar(_slotNum));
+                _itemMenuController.Set(_wholeInventoryHandler.GetFromToolbar(_slotNum), UseButtonVariant.USE);
                 _openItemMenu.Execute();
                 _menuController.Push(_itemMenuInputController);
             }

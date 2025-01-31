@@ -1542,7 +1542,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 256084072}
-  - component: {fileID: 256084071}
+  - component: {fileID: 256084073}
   m_Layer: 0
   m_Name: HelpBoxController
   m_TagString: Untagged
@@ -1550,20 +1550,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &256084071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 256084070}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2a4240af8b6f644db2fee308f0af686, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _helpMenuOneButton: {fileID: 1127145505}
-  _helpMenuTwoButtons: {fileID: 264145605}
 --- !u!4 &256084072
 Transform:
   m_ObjectHideFlags: 0
@@ -1579,6 +1565,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 534049138}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &256084073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 256084070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bbc6d120ff53b44b894d49db28a881f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _helpMenuOneButton: {fileID: 1127145505}
+  _helpMenuTwoButtons: {fileID: 264145605}
 --- !u!1 &259067250
 GameObject:
   m_ObjectHideFlags: 0
@@ -2660,6 +2660,7 @@ MonoBehaviour:
   _typeField: {fileID: 619146028}
   _rarityField: {fileID: 2011244538}
   _descriptionField: {fileID: 995365380}
+  _useButtonTextField: {fileID: 1841358443}
   _craftButton: {fileID: 1198284764994870415}
   _useOrEquipButton: {fileID: 1358285359}
   _discardButton: {fileID: 1811762577}
@@ -4527,6 +4528,7 @@ MonoBehaviour:
   _inventoryData:
     _itemListHandler:
       _itemListScriptableObject: {fileID: 11400000, guid: 61bc246e8fcda2f429b089224cb29877, type: 2}
+  _storageScriptableObject: {fileID: 11400000, guid: 9a19aefb8e9dc32478519a306eb80f75, type: 2}
 --- !u!4 &675958859
 Transform:
   m_ObjectHideFlags: 0
@@ -5097,7 +5099,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.12, y: 1.26}
+  m_Size: {x: 2.47, y: 1.26}
   m_EdgeRadius: 0
 --- !u!114 &726839504
 MonoBehaviour:
@@ -5111,7 +5113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 105557129af50fa4880ca725c4e8502e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _helpBoxController: {fileID: 256084071}
+  _helpBoxController: {fileID: 256084073}
   _currentState: 2
 --- !u!1 &732699949
 GameObject:
@@ -6245,7 +6247,6 @@ MonoBehaviour:
   _itemMenuController: {fileID: 425336415}
   _menuController: {fileID: 1514410866}
   _closeCraftMenu: {fileID: 678544074}
-  _closeItemMenu: {fileID: 1420680339}
 --- !u!1 &928334018
 GameObject:
   m_ObjectHideFlags: 0
@@ -10192,7 +10193,6 @@ MonoBehaviour:
   _openStorageMenuInputCommand: {fileID: 1727311404}
   _storageModel: {fileID: 1392294486}
   _name: Chest
-  _canPutIn: 1
 --- !u!61 &1363918374
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10639,6 +10639,7 @@ MonoBehaviour:
   _inventoryData:
     _itemListHandler:
       _itemListScriptableObject: {fileID: 11400000, guid: 61bc246e8fcda2f429b089224cb29877, type: 2}
+  _storageScriptableObject: {fileID: 11400000, guid: b6bf6c80e58f8374bb5e4dcb15ed0f96, type: 2}
 --- !u!4 &1392294487
 Transform:
   m_ObjectHideFlags: 0
@@ -12518,7 +12519,6 @@ MonoBehaviour:
   _openStorageMenuInputCommand: {fileID: 1727311404}
   _storageModel: {fileID: 675958858}
   _name: Corpse
-  _canPutIn: 0
 --- !u!1 &1646269013
 GameObject:
   m_ObjectHideFlags: 0
@@ -12601,6 +12601,8 @@ MonoBehaviour:
   _equipmentModel: {fileID: 2121604065}
   _itemListHandler:
     _itemListScriptableObject: {fileID: 11400000, guid: 61bc246e8fcda2f429b089224cb29877, type: 2}
+  _toolbarController: {fileID: 1840238385}
+  _equipmentController: {fileID: 782976351}
 --- !u!1001 &1657288158
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13973,6 +13975,17 @@ MonoBehaviour:
   - {fileID: 2069576921}
   - {fileID: 1295554718}
   _toolbarModel: {fileID: 1278371774}
+--- !u!114 &1841358443 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9096096670314690107, guid: 75c11b7a5f6f2c74abf0255f9e436fe1, type: 3}
+  m_PrefabInstance: {fileID: 1054996673}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1842875990
 GameObject:
   m_ObjectHideFlags: 0

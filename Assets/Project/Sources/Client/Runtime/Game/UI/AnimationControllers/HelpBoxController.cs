@@ -20,23 +20,37 @@ namespace Client.Runtime.Game.UI.AnimationControllers
         [SerializeField] private RectTransform _helpMenuTwoButtons;
 
         private Sequence _currentSequence;
+        private bool _raised = false;
+
+        public void SetActive(bool active)
+        {
+            _helpMenuOneButton.gameObject.SetActive(active);
+            _helpMenuTwoButtons.gameObject.SetActive(active);
+        }
 
         public void Raise(HelpBoxType type)
         {            
             _currentSequence?.Kill();
             _currentSequence = DOTween.Sequence();
-            _currentSequence.Insert(0f, _helpMenuOneButton.DOAnchorPosY(-50f, 0.2f));
-            _currentSequence.Insert(0f, _helpMenuTwoButtons.DOAnchorPosY(-50f, 0.2f));
-            
+
+            if (_raised)
+            {
+                _currentSequence.Insert(0f, _helpMenuOneButton.DOAnchorPosY(-50f, 0.2f));
+                _currentSequence.Insert(0f, _helpMenuTwoButtons.DOAnchorPosY(-50f, 0.2f));
+            }
+
+            float startTime = _raised ? 0.1f : 0.0f;
             switch (type)
             {
                 case HelpBoxType.ONE_BUTTON:
-                    _currentSequence.Insert(0.2f, _helpMenuOneButton.DOAnchorPosY(50f, 0.3f));
+                    _currentSequence.Insert(startTime, _helpMenuOneButton.DOAnchorPosY(50f, 0.2f).SetEase(Ease.OutQuad));
                     break;
                 case HelpBoxType.TWO_BUTTONS:
-                    _currentSequence.Insert(0.2f, _helpMenuTwoButtons.DOAnchorPosY(50f, 0.3f));
+                    _currentSequence.Insert(startTime, _helpMenuTwoButtons.DOAnchorPosY(50f, 0.2f).SetEase(Ease.OutQuad));
                     break;
             }
+
+            _raised = true;
         }
 
         public void Remove()
@@ -45,6 +59,8 @@ namespace Client.Runtime.Game.UI.AnimationControllers
             _currentSequence = DOTween.Sequence();
             _currentSequence.Insert(0f, _helpMenuOneButton.DOAnchorPosY(-50f, 0.2f));
             _currentSequence.Insert(0f, _helpMenuTwoButtons.DOAnchorPosY(-50f, 0.2f));
+
+            _raised = false;
         }
 
         private void OnDestroy() {
