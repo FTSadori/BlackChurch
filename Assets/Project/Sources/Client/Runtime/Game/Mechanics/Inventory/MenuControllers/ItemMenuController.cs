@@ -54,6 +54,7 @@ namespace Client.Runtime.Game.Mechanics.Inventory
 
         private ItemData currentItemData;
         private UseButtonVariant currentUseButtonVariant;
+        private bool currentDiscardStatus;
 
         public string GetCurrentId() => currentId;
 
@@ -76,15 +77,17 @@ namespace Client.Runtime.Game.Mechanics.Inventory
 
         public void Reset()
         {
-            Set(_wholeInventoryHandler.GetItemData(currentId), currentUseButtonVariant);
+            Set(_wholeInventoryHandler.GetItemData(currentId), currentUseButtonVariant, currentDiscardStatus);
         }
 
-        public void Set(ItemData itemData, UseButtonVariant useButtonVariant)
+        public void Set(ItemData itemData, UseButtonVariant useButtonVariant, bool allowItemDiscard)
         {
             SetUseButtonText(useButtonVariant);
 
             currentId = itemData.id;
             currentItemData = itemData;
+            currentUseButtonVariant = useButtonVariant;
+            currentDiscardStatus = allowItemDiscard;
 
             _bigItemSlotController.Set(itemData.id, 1);
             _nameField.text = itemData.nameId;
@@ -93,7 +96,7 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             _typeField.text = "Type:\n" + itemData.typeId;
             _descriptionField.text = itemData.descriptionId;
 
-            _discardButton.interactable = itemData.discardButtonActive;
+            _discardButton.interactable = allowItemDiscard && itemData.discardButtonActive;
             _craftButton.interactable = itemData.craftButtonActive;
             _useOrEquipButton.interactable = itemData.useButtonActive;
 

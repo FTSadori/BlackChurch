@@ -29,7 +29,6 @@ namespace Client.Runtime.Game.UI.Commands.InputCommands
             {
                 var item = _toolbarModel.InventoryData.GetBySlotNumber(_slotNum);
                 var left = _storageInventory.AddItem(item.id, item.quantity);
-                _storageMenuController.UpdateInventory(_storageInventory);
                 if (left == 0)
                 {
                     _toolbarModel.InventoryData.ClearSlot(_slotNum);
@@ -42,7 +41,6 @@ namespace Client.Runtime.Game.UI.Commands.InputCommands
                 {
                     Debug.Log("Not enough space in storage");
                 }
-                _toolbarController.UpdateInventory();
             }
         }
     }

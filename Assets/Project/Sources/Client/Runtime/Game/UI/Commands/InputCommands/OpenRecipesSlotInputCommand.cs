@@ -26,7 +26,7 @@ namespace Client.Runtime.Game.UI.Commands.InputCommands
             var list = _itemMenuController.GetListOfCraftables();
             if (_slotNum < list.Count)
             {
-                _itemMenuController.Set(_wholeInventoryHandler.GetItemData(list[_slotNum]), UseButtonVariant.USE);
+                _itemMenuController.Set(_wholeInventoryHandler.GetItemData(list[_slotNum]), UseButtonVariant.USE, false);
             }
         }
     }

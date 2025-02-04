@@ -76,14 +76,12 @@ namespace Client.Runtime.Game.Environment.TrashPile
                 var left = _toolbarModel.InventoryData.AddItem(itemInfo.id, itemInfo.quantity);
                 if (left == 0)
                 {
-                    _toolbarController.UpdateInventory();
                     _trashPileModel.RemoveItem();
                     _trashPileModel._state = TrashPileState.AWAITS;
                     _slotCanvas.SetActive(false);
                 }
                 else if (left != itemInfo.quantity)
                 {
-                    _toolbarController.UpdateInventory();
                     _trashPileModel._itemRecords[0].quantity = left;
                     _itemSlotController.Set(itemInfo.id, left);
                 }

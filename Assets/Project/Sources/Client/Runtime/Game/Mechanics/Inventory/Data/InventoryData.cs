@@ -14,6 +14,8 @@ namespace Client.Runtime.Game.Mechanics.Inventory
         [SerializeField] private ItemListHandler _itemListHandler = new();
         private List<InventoryDataRecord> _inventory = new();
 
+        public Action OnUpdateInventory;
+
         public InventoryData(List<SlotType> slotTypes)
         {
             foreach (var slotType in slotTypes)
@@ -61,6 +63,8 @@ namespace Client.Runtime.Game.Mechanics.Inventory
                 }
             }
 
+            OnUpdateInventory?.Invoke();
+
             return;
         }
 
@@ -69,6 +73,8 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             var t = _inventory[number].type;
             _inventory.Add(new InventoryDataRecord("", 0, t));
             _inventory.RemoveAt(number);
+
+            OnUpdateInventory?.Invoke();
         }
 
         public bool IsSlotEmpty(int number)
@@ -90,6 +96,8 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             {
                 return quantity;
             }
+            OnUpdateInventory?.Invoke();
+
             return quantity - validQuantity;
         }
 

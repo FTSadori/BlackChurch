@@ -25,7 +25,6 @@ namespace Client.Runtime.Game.UI.Commands.InputCommands
             {
                 var item = _storageInventory.GetBySlotNumber(_slotNum);
                 var left = _toolbarModel.InventoryData.AddItem(item.id, item.quantity);
-                _toolbarController.UpdateInventory();
 
                 if (left == 0)
                 {
@@ -39,7 +38,6 @@ namespace Client.Runtime.Game.UI.Commands.InputCommands
                 {
                     Debug.Log("Not enough space in toolbar");
                 }
-                _storageMenuController.UpdateInventory(_storageInventory);
             }
         }
     }

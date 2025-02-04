@@ -17,6 +17,8 @@ namespace Client.Runtime.Game.Mechanics.Inventory.MenuControllers
         [SerializeField] private TMP_Text _storageTitle;
         [SerializeField] private ToolbarModel _toolbarModel;
         [SerializeField] private ToolbarController _toolbarController;
+
+        private InventoryData _currentInventory = null;
         
         public List<PutInStorageSlotInputCommand> _commands = new();
         private List<ItemSlotController> _slotControllers = new();
@@ -70,6 +72,14 @@ namespace Client.Runtime.Game.Mechanics.Inventory.MenuControllers
         }
 
         public void Set(InventoryData inventoryData, string name) {
+            if (_currentInventory != null)
+            {
+                _currentInventory.OnUpdateInventory -= UpdateInventory;
+            }
+
+            _currentInventory = inventoryData;
+            _currentInventory.OnUpdateInventory += UpdateInventory;
+            
             _storageTitle.text = name;
             for (int i = 0; i < inventoryData.Count(); ++i)
             {
@@ -79,12 +89,19 @@ namespace Client.Runtime.Game.Mechanics.Inventory.MenuControllers
             }
         }
 
-        public void UpdateInventory(InventoryData inventoryData)
+        private void UpdateInventory()
         {
             for (int i = 0; i < _slotControllers.Count; i++)
             {
-                var data = inventoryData.GetBySlotNumber(i);
+                var data = _currentInventory.GetBySlotNumber(i);
                 _slotControllers[i].Set(data.id, data.quantity);
+            }
+        }
+
+        private void OnDestroy() {
+            if (_currentInventory != null)
+            {
+                _currentInventory.OnUpdateInventory -= UpdateInventory;
             }
         }
     }

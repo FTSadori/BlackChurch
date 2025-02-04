@@ -104,12 +104,6 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             return true;
         }
 
-        public void UpdateEverything()
-        {
-            _toolbarController.UpdateInventory();
-            _equipmentController.UpdateInventory();
-        }
-
         public bool CanBeCrafted(string id)
         {
             var itemObj = _itemListHandler.GetObjectById(id);

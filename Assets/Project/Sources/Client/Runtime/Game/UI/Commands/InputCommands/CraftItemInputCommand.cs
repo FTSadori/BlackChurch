@@ -29,7 +29,6 @@ namespace Client.Runtime.Game.UI.Commands.InputCommands
                 }
                 else
                 {
-                    _wholeInventoryHandler.UpdateEverything();
                     _itemMenuController.Reset();
                 }
             }

@@ -12,7 +12,11 @@ namespace Client.Runtime.Game.Mechanics.Inventory
         [SerializeField] private ItemSlotController[] _slots = new ItemSlotController[7];
         [SerializeField] private EquipmentModel _equipmentModel;
 
-        public void UpdateInventory() {
+        private void Awake() {
+            _equipmentModel.InventoryData.OnUpdateInventory += UpdateInventory;
+        }
+
+        private void UpdateInventory() {
             for (int i = 0; i < _slots.Length; i++)
             {
                 var data = _equipmentModel.InventoryData.GetBySlotNumber(i);
@@ -21,6 +25,10 @@ namespace Client.Runtime.Game.Mechanics.Inventory
                     _slots[i].Set(data.id, data.quantity);
                 }
             }
+        }
+
+        private void OnDestroy() {
+            _equipmentModel.InventoryData.OnUpdateInventory -= UpdateInventory;            
         }
     }
 }

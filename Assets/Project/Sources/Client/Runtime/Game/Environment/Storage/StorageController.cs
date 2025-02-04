@@ -39,7 +39,5 @@ namespace Client.Runtime.Game.Environment.Storage
         {
             _selectionTexture.SetActive(true);
         }
-
-        
     }
 }

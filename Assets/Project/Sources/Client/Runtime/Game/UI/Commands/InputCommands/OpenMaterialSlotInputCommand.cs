@@ -22,7 +22,7 @@ namespace Client.Runtime.Game.UI.Commands.InputCommands
         {
             _closeCraftMenu.Execute();
             _menuController.Pop();
-            _itemMenuController.Set(_wholeInventoryHandler.GetItemData(_craftMenuController.GetCurrentMaterial(_slotNum)), UseButtonVariant.USE);
+            _itemMenuController.Set(_wholeInventoryHandler.GetItemData(_craftMenuController.GetCurrentMaterial(_slotNum)), UseButtonVariant.USE, false);
         }
     }
 }
