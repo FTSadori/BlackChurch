@@ -22,8 +22,8 @@ namespace Client.Runtime.Game.UI.Commands.InputCommands
         {
             if (!_wholeInventoryHandler.GetEqupmentInventory().IsSlotEmpty(_slotNum))
             {
-                DiscardItemInputCommand._currentSlot = _slotNum;
-                DiscardItemInputCommand._inToolbar = false;
+                _itemMenuController.CurrentSlot = _slotNum;
+                _itemMenuController.InToolbar = false;
 
                 _itemMenuController.Set(_wholeInventoryHandler.GetFromEquipment(_slotNum), UseButtonVariant.UNEQUIP, true);
                 _openItemMenu.Execute();

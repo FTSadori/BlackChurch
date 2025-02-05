@@ -17,4 +17,6 @@ MonoBehaviour:
   - key: Trash
     value: 16
   - key: Thing
-    value: 111
+    value: 20
+  - key: YellowWater
+    value: 3

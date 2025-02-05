@@ -47,6 +47,8 @@ namespace Client.Runtime.Game.Mechanics.Inventory
         [SerializeField] private GameObject _prefabOfSlot;
         [SerializeField] private GameObject _prefabOfButton;
         
+        public bool InToolbar;
+        public int CurrentSlot;
 
         private string currentId = "";
 
@@ -80,14 +82,14 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             Set(_wholeInventoryHandler.GetItemData(currentId), currentUseButtonVariant, currentDiscardStatus);
         }
 
-        public void Set(ItemData itemData, UseButtonVariant useButtonVariant, bool allowItemDiscard)
+        public void Set(ItemData itemData, UseButtonVariant useButtonVariant, bool allowItemUseAndDiscard)
         {
             SetUseButtonText(useButtonVariant);
 
             currentId = itemData.id;
             currentItemData = itemData;
             currentUseButtonVariant = useButtonVariant;
-            currentDiscardStatus = allowItemDiscard;
+            currentDiscardStatus = allowItemUseAndDiscard;
 
             _bigItemSlotController.Set(itemData.id, 1);
             _nameField.text = itemData.nameId;
@@ -96,9 +98,9 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             _typeField.text = "Type:\n" + itemData.typeId;
             _descriptionField.text = itemData.descriptionId;
 
-            _discardButton.interactable = allowItemDiscard && itemData.discardButtonActive;
+            _discardButton.interactable = allowItemUseAndDiscard && itemData.discardButtonActive;
             _craftButton.interactable = itemData.craftButtonActive;
-            _useOrEquipButton.interactable = itemData.useButtonActive;
+            _useOrEquipButton.interactable = allowItemUseAndDiscard && itemData.useButtonActive;
 
             var list = _itemListHandler.GetWhatCanBeCraftedFrom(itemData.id);
             listOfCraftables = list;

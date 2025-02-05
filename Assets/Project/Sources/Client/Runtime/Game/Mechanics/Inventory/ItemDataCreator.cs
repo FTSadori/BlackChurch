@@ -7,6 +7,24 @@ using Client.Runtime.Game.ScriptableObjects;
 
 namespace Client.Runtime.Game.Mechanics.Inventory
 {
+    public sealed class TypeIds
+    {
+        static public readonly string Consumable = "type.Consumable";
+        static public readonly string Material = "type.Material";
+        static public readonly string Accessory = "type.Accessory";
+        static public readonly string Body = "type.Body";
+        static public readonly string Legs = "type.Legs";
+        static public readonly string Head = "type.Head";
+        static public readonly string Melee = "type.MeleeWeapon";
+        static public readonly string Ranged = "type.RangedWeapon";
+        static public readonly string Error = "type.Error";
+
+        static public bool IsEquipable(string id)
+        {
+            return (id != Consumable) && (id != Material) && (id != Error);
+        }
+    }
+
     public sealed class ItemDataCreator
     {
         static public ItemData GenerateItemData(MaterialScriptableObject itemObj, WholeInventoryHandler wholeInventoryHandler)
@@ -35,34 +53,34 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             switch (itemObj.itemType)
             {
                 case ItemType.CONSUMABLE:
-                    return "type.Consumable";
+                    return TypeIds.Consumable;
                 case ItemType.MATERIAL:
-                    return "type.Material";
+                    return TypeIds.Material;
                 case ItemType.EQUIPABLE:
                     if (itemObj is EquipableScriptableObject equipableObj)
                     {
                         switch (equipableObj.equipableType)
                         {
                             case EquipableType.ACCESSORY:
-                                return "type.Accessory";
+                                return TypeIds.Accessory;
                             case EquipableType.BODY:
-                                return "type.Body";
+                                return TypeIds.Body;
                             case EquipableType.LEGS:
-                                return "type.Legs";
+                                return TypeIds.Legs;
                             case EquipableType.HEAD:
-                                return "type.Head";
+                                return TypeIds.Head;
                             case EquipableType.WEAPON:
                                 return equipableObj.weaponType switch
                                 {
-                                    WeaponType.MELEE => "type.MeleeWeapon",
-                                    WeaponType.RANGED => "type.RangedWeapon",
-                                    _ => "type.ShitError"
+                                    WeaponType.MELEE => TypeIds.Melee,
+                                    WeaponType.RANGED => TypeIds.Ranged,
+                                    _ => TypeIds.Error
                                 };
                         }
                     }
                 break;
             }
-            return "type.ShitError";
+            return TypeIds.Error;
         }
     }
 }

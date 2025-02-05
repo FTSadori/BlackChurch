@@ -21,32 +21,28 @@ namespace Client.Runtime.Game.UI.Commands.InputCommands
         [SerializeField] PlayerController _playerController;
         [SerializeField] float _throwPowerHor = 10f;
         [SerializeField] float _throwPowerVer = 2f;
-        static public bool _inToolbar = true;
-        static public int _currentSlot = 0;
 
         public override void Execute()
         {
             if (_itemMenuController.GetItemData().discardButtonActive)
             {
-                string id;
-                int quantity;
                 bool deleteSlot;
                 InventoryData inventory;
-                if (_inToolbar && !_wholeInventoryHandler.GetToolbarInventory().IsSlotEmpty(_currentSlot))
+                if (_itemMenuController.InToolbar && !_wholeInventoryHandler.GetToolbarInventory().IsSlotEmpty(_itemMenuController.CurrentSlot))
                 {
                     inventory = _wholeInventoryHandler.GetToolbarInventory();
                     deleteSlot = true;
                 }
-                else if (!_wholeInventoryHandler.GetEqupmentInventory().IsSlotEmpty(_currentSlot))
+                else if (!_wholeInventoryHandler.GetEqupmentInventory().IsSlotEmpty(_itemMenuController.CurrentSlot))
                 {
                     inventory = _wholeInventoryHandler.GetEqupmentInventory();
                     deleteSlot = false;
                 }
                 else return;
 
-                id = inventory.GetBySlotNumber(_currentSlot).id;
-                quantity = inventory.GetBySlotNumber(_currentSlot).quantity;
-                _wholeInventoryHandler.GetToolbarInventory().RemoveItemAtSlot(_currentSlot, id, quantity, deleteSlot);                
+                string id = inventory.GetBySlotNumber(_itemMenuController.CurrentSlot).id;
+                int quantity = inventory.GetBySlotNumber(_itemMenuController.CurrentSlot).quantity;
+                _wholeInventoryHandler.GetToolbarInventory().RemoveItemAtSlot(_itemMenuController.CurrentSlot, id, quantity, deleteSlot);                
 
                 var obj = Instantiate(_droppedItemObject);
                 obj.transform.position = _playerController.gameObject.transform.position;

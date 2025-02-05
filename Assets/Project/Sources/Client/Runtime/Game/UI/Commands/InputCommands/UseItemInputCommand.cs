@@ -14,11 +14,50 @@ namespace Client.Runtime.Game.UI.Commands.InputCommands
         [SerializeField] ItemMenuController _itemMenuController;
         [SerializeField] CloseMenuCommand _closeItemMenu;
         [SerializeField] MenuController _menuController;
+        [SerializeField] WholeInventoryHandler _wholeInventoryHandler;
 
         public override void Execute()
         {
             if (_itemMenuController.GetItemData().useButtonActive)
             {
+                bool deleteSlot;
+                InventoryData inventoryFrom;
+                InventoryData inventoryTo;
+
+                if (_itemMenuController.InToolbar && !_wholeInventoryHandler.GetToolbarInventory().IsSlotEmpty(_itemMenuController.CurrentSlot))
+                {
+                    inventoryFrom = _wholeInventoryHandler.GetToolbarInventory();
+                    inventoryTo = _wholeInventoryHandler.GetEqupmentInventory();
+                    deleteSlot = true;
+                }
+                else if (!_wholeInventoryHandler.GetEqupmentInventory().IsSlotEmpty(_itemMenuController.CurrentSlot))
+                {
+                    inventoryFrom = _wholeInventoryHandler.GetEqupmentInventory();
+                    inventoryTo = _wholeInventoryHandler.GetToolbarInventory();
+                    deleteSlot = false;
+                }
+                else return;
+
+                string id = inventoryFrom.GetBySlotNumber(_itemMenuController.CurrentSlot).id;
+
+                if (_itemMenuController.GetItemData().typeId == TypeIds.Consumable)
+                {
+                    // todo consume
+                    Debug.Log("Consumed");
+                }
+                else if (TypeIds.IsEquipable(_itemMenuController.GetItemData().typeId))
+                {
+                    // todo equip/unequip
+                    if (inventoryTo.AddItem(id, 1) != 0)
+                    {
+                        Debug.Log("Can't equip/unequip");
+                        return;
+                    }
+                    Debug.Log("Equipped");
+                }
+
+                inventoryFrom.RemoveItemAtSlot(_itemMenuController.CurrentSlot, id, 1, deleteSlot);
+
                 _closeItemMenu.Execute();
                 _menuController.Pop();
             }

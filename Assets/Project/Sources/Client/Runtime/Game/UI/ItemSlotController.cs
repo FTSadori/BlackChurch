@@ -36,6 +36,8 @@ namespace Client.Runtime.Game.UI
         [SerializeField] GameObject _helpButtonObj;
         [SerializeField] TMP_Text _helpButtonText;
         [SerializeField] SerializableButtonCommand _buttonCommand;
+        [SerializeField] GameObject _statsShadow;
+        [SerializeField] TMP_Text _statsText;
 
         public SlotMenu GetSlotMenu() => _slotMenu;
 
@@ -52,7 +54,7 @@ namespace Client.Runtime.Game.UI
 
         public void Set(string id, int count)
         {
-            if (id == "")
+            if (id == "" || count == 0)
             {
                 Clear();
                 return;
@@ -63,6 +65,34 @@ namespace Client.Runtime.Game.UI
             _rarityFrame.color = _rarityColorsScriptableObject.rarityColors[(int)item.rarity];
             _itemImage.sprite = item.sprite;
             _countText.text = (count == 1) ? "" : count.ToString();
+            SetStatsText(item);
+        }
+
+        private void SetStatsText(MaterialScriptableObject item)
+        {
+            _statsShadow.SetActive(false);
+            _statsText.text = "";            
+
+            if (item.itemType == ItemType.CONSUMABLE && item is ConsumableScriptableObject citem)
+            {
+                if (citem.hpBuff != 0)
+                {
+                    _statsText.text = $"♥{citem.hpBuff}♥";
+                }
+                _statsShadow.SetActive(true);
+            }
+            else if (item.itemType == ItemType.EQUIPABLE && item is EquipableScriptableObject eitem)
+            {
+                if (eitem.equipableType == EquipableType.WEAPON)
+                {
+                    _statsText.text = $"♠{eitem.additiveStats.baseAttack}♠";
+                }
+                else
+                {
+                    _statsText.text = $"♦{eitem.additiveStats.baseDefence}♦";
+                }
+                _statsShadow.SetActive(true);
+            }
         }
 
         public void Select()
@@ -80,6 +110,8 @@ namespace Client.Runtime.Game.UI
             _itemImageObject.SetActive(false);
             _rarityFrame.color = new Color(0, 0, 0, 0);
             _countText.text = "";
+            _statsShadow.SetActive(false);
+            _statsText.text = "";
         }
     }
 }

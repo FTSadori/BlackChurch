@@ -25,8 +25,9 @@ namespace Client.Runtime.Game.Mechanics.Inventory.MenuControllers
 
         private void Awake() {
             float startX = -210f;
-            Vector3 currentPoint = new (-210f, 170f);
-            float delta = 140f;
+            Vector3 currentPoint = new (-210f, 185f);
+            float deltaX = 140f;
+            float deltaY = 160f;
 
             for (int i = 0; i < 4; ++i)
             {
@@ -43,10 +44,10 @@ namespace Client.Runtime.Game.Mechanics.Inventory.MenuControllers
                     slot.SetNewButtonCommand(command);
                     slot.SetHelpButtonText("");
                     _slotControllers.Add(slot);
-                    currentPoint.x += delta;
+                    currentPoint.x += deltaX;
                 }
                 currentPoint.x = startX;
-                currentPoint.y -= delta;
+                currentPoint.y -= deltaY;
             }
         }
 
