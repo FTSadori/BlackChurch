@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaaacb38b5660e64b9d7ca706278e8c3, type: 3}
+  m_Name: GodsSigils
+  m_EditorClassIdentifier: 
+  sigilColors:
+  - {r: 0.3003354, g: 0, b: 1, a: 0.078431375}
+  - {r: 1, g: 1, b: 1, a: 0.078431375}
+  - {r: 0.9851459, g: 1, b: 0, a: 0.078431375}
+  - {r: 1, g: 0, b: 0.044427395, a: 0.078431375}
+  - {r: 0, g: 0.6528301, b: 0.14592668, a: 0.078431375}
+  - {r: 0, g: 1, b: 0.9823184, a: 0.078431375}
+  - {r: 0.61267805, g: 0, b: 1, a: 0.078431375}
+  sigilSprites:
+  - {fileID: 21300000, guid: 995a5b2020216dd4a9ef481bec18f5f9, type: 3}
+  - {fileID: 21300000, guid: 2e89b7029334ef24397bea4688279354, type: 3}
+  - {fileID: 21300000, guid: 995a5b2020216dd4a9ef481bec18f5f9, type: 3}
+  - {fileID: 21300000, guid: 2e89b7029334ef24397bea4688279354, type: 3}
+  - {fileID: 21300000, guid: 995a5b2020216dd4a9ef481bec18f5f9, type: 3}
+  - {fileID: 21300000, guid: 2e89b7029334ef24397bea4688279354, type: 3}
+  - {fileID: 21300000, guid: 995a5b2020216dd4a9ef481bec18f5f9, type: 3}

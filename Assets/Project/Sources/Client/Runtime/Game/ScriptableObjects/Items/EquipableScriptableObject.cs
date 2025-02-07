@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Client.Runtime.Game.Mechanics;
+using Sources.Client.Runtime.Game.Mechanics;
 using UnityEngine;
 
 namespace Client.Runtime.Game.ScriptableObjects
@@ -28,5 +29,6 @@ namespace Client.Runtime.Game.ScriptableObjects
         public EquipableType equipableType;
         public CharacterStats additiveStats;
         public WeaponType weaponType;
+        public GodType godType;
     }
 }

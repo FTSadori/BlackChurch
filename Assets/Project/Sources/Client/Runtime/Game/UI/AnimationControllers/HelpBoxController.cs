@@ -62,9 +62,5 @@ namespace Client.Runtime.Game.UI.AnimationControllers
 
             _raised = false;
         }
-
-        private void OnDestroy() {
-            DOTween.Kill(_currentSequence);
-        }
     }
 }

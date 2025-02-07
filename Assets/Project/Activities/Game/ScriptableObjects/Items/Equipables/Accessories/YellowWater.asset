@@ -22,12 +22,14 @@ MonoBehaviour:
   craftsFromId2: RedPorridge
   equipableType: 4
   additiveStats:
-    maxHp: 0
+    maxHp: 10
     baseAttack: 0
     baseDefence: 5
-    pureAttack: 0
-    pureDefence: 0
-    speedBuff: 0
-    jumpBuff: 0
-    attackSpeed: 0
+    pureAttack: 1
+    pureDefence: 1
+    regenerationRate: 0.5
+    speedBuff: 0.05
+    meleeBuff: 0.1
+    rangedBuff: 100
   weaponType: 0
+  godType: 6

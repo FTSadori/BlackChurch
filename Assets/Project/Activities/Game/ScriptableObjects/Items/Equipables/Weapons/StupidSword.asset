@@ -28,6 +28,7 @@ MonoBehaviour:
     pureAttack: 0
     pureDefence: 0
     speedBuff: 0
-    jumpBuff: 0
-    attackSpeed: 0
+    meleeBuff: 0
+    rangedBuff: 0
   weaponType: 1
+  godType: 5

@@ -11,6 +11,8 @@ using UnityEngine.UI;
 using TMPro;
 using Client.Runtime.Game.Mechanics.Inventory;
 using Client.Runtime.Framework.Unity;
+using Sources.Client.Runtime.Game.Mechanics;
+using Client.Runtime.Game.Player;
 
 namespace Client.Runtime.Game.UI
 {
@@ -27,6 +29,7 @@ namespace Client.Runtime.Game.UI
     {
         [SerializeField] ItemListHandler _itemListHandler;
         [SerializeField] RarityColorsScriptableObject _rarityColorsScriptableObject;
+        [SerializeField] GodsSigilsScriptableObject _godsSigilsScriptableObject;
         [SerializeField] GameObject _selectionFrame;
         [SerializeField] Image _rarityFrame;
         [SerializeField] Image _itemImage;
@@ -38,6 +41,7 @@ namespace Client.Runtime.Game.UI
         [SerializeField] SerializableButtonCommand _buttonCommand;
         [SerializeField] GameObject _statsShadow;
         [SerializeField] TMP_Text _statsText;
+        [SerializeField] Image _sigil;
 
         public SlotMenu GetSlotMenu() => _slotMenu;
 
@@ -66,6 +70,22 @@ namespace Client.Runtime.Game.UI
             _itemImage.sprite = item.sprite;
             _countText.text = (count == 1) ? "" : count.ToString();
             SetStatsText(item);
+            SetSigil(item);
+        }
+
+        private void SetSigil(MaterialScriptableObject item)
+        {
+            _sigil.gameObject.SetActive(false);
+
+            if (item.itemType == ItemType.EQUIPABLE && item is EquipableScriptableObject eitem)
+            {
+                if (eitem.godType != GodType.MAX_TYPE)
+                {
+                    _sigil.color = _godsSigilsScriptableObject.sigilColors[(int)eitem.godType];
+                    _sigil.sprite = _godsSigilsScriptableObject.sigilSprites[(int)eitem.godType];
+                    _sigil.gameObject.SetActive(true);
+                }
+            }
         }
 
         private void SetStatsText(MaterialScriptableObject item)
@@ -85,11 +105,13 @@ namespace Client.Runtime.Game.UI
             {
                 if (eitem.equipableType == EquipableType.WEAPON)
                 {
-                    _statsText.text = $"♠{eitem.additiveStats.baseAttack}♠";
+                    var value = PlayerModel.MainPlayerGodBuffs.GetPowerUppedValueFor(eitem.godType, eitem.additiveStats.baseAttack);
+                    _statsText.text = $"♠{value:0.0}♠";
                 }
                 else
                 {
-                    _statsText.text = $"♦{eitem.additiveStats.baseDefence}♦";
+                    var value = PlayerModel.MainPlayerGodBuffs.GetPowerUppedValueFor(eitem.godType, eitem.additiveStats.baseDefence);
+                    _statsText.text = $"♦{value:0.0}♦";
                 }
                 _statsShadow.SetActive(true);
             }
@@ -112,6 +134,7 @@ namespace Client.Runtime.Game.UI
             _countText.text = "";
             _statsShadow.SetActive(false);
             _statsText.text = "";
+            _sigil.gameObject.SetActive(false);
         }
     }
 }
