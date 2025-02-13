@@ -48,24 +48,24 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             }
             totalCount -= Mathf.Min(quantity, totalCount);
             AddItem(id, totalCount);
-
-            if (withClearSlots)
+            
+            int cleared = 0;
+            for (int i = 0; i < _inventory.Count - cleared; ++i)
             {
-                int cleared = 0;
-                for (int i = 0; i < _inventory.Count - cleared; ++i)
+                if (_inventory[i].id == id && _inventory[i].quantity == 0)
                 {
-                    if (_inventory[i].id == id && _inventory[i].quantity == 0)
+                    cleared += 1;
+                    if (withClearSlots)
                     {
-                        cleared += 1;
                         ClearSlot(i);
                         --i;
                     }
+                    else
+                        _inventory[i].id = "";
                 }
             }
 
             OnUpdateInventory?.Invoke();
-
-            return;
         }
 
         public void ClearSlot(int number)

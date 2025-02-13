@@ -20,10 +20,7 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             for (int i = 0; i < _slots.Length; i++)
             {
                 var data = _equipmentModel.InventoryData.GetBySlotNumber(i);
-                if (data.id != "")
-                {
-                    _slots[i].Set(data.id, data.quantity);
-                }
+                _slots[i].Set(data.id, data.quantity);
             }
         }
 

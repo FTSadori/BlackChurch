@@ -10,8 +10,10 @@ namespace Client.Runtime.Game.Player
     {
         [SerializeField] Rigidbody2D _rigidbody;
         [SerializeField] Collider2D _collider;
+        [SerializeField] SpriteRenderer _spriteRenderer;
 
         public Rigidbody2D Rigidbody => _rigidbody;
         public Collider2D Collider => _collider;
+        public SpriteRenderer SpriteRenderer => _spriteRenderer;
     }
 }

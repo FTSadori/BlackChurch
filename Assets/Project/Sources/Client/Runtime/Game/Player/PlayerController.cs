@@ -22,7 +22,12 @@ namespace Client.Runtime.Game.Player
         [SerializeField] private float _ungroundedJumpTime = 0.2f;
         [SerializeField] private float _jumpCommandTime = 0.2f;
 
-        public int LastDirection = 1;
+        public bool AutoChangeDirection = true;
+        private int _lastDirection = 1;
+        public int LastDirection { 
+            get => _lastDirection; 
+            set {_lastDirection = value; _playerView.SpriteRenderer.flipX = _lastDirection == -1;}
+        }
         public bool CanMove = true;
         public bool CompletelyPaused = false;
 
@@ -122,7 +127,7 @@ namespace Client.Runtime.Game.Player
         private void CheckHorizontalMove() {
             var horizontal = Input.GetAxisRaw("Horizontal");
             var delta = _playerModel.MaxSpeed * Time.fixedDeltaTime;
-            if ((int)horizontal != 0)
+            if (AutoChangeDirection && (int)horizontal != 0)
                 LastDirection = (int)horizontal;
 
             _playerView.Rigidbody.position += new Vector2(horizontal * delta, 0f);

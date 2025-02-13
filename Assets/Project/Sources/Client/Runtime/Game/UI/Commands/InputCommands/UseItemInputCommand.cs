@@ -15,6 +15,7 @@ namespace Client.Runtime.Game.UI.Commands.InputCommands
         [SerializeField] CloseMenuCommand _closeItemMenu;
         [SerializeField] MenuController _menuController;
         [SerializeField] WholeInventoryHandler _wholeInventoryHandler;
+        [SerializeField] ItemListHandler _itemListHandler;
 
         public override void Execute()
         {
@@ -30,7 +31,7 @@ namespace Client.Runtime.Game.UI.Commands.InputCommands
                     inventoryTo = _wholeInventoryHandler.GetEqupmentInventory();
                     deleteSlot = true;
                 }
-                else if (!_wholeInventoryHandler.GetEqupmentInventory().IsSlotEmpty(_itemMenuController.CurrentSlot))
+                else if (!_itemMenuController.InToolbar && !_wholeInventoryHandler.GetEqupmentInventory().IsSlotEmpty(_itemMenuController.CurrentSlot))
                 {
                     inventoryFrom = _wholeInventoryHandler.GetEqupmentInventory();
                     inventoryTo = _wholeInventoryHandler.GetToolbarInventory();
@@ -50,10 +51,29 @@ namespace Client.Runtime.Game.UI.Commands.InputCommands
                     // todo equip/unequip
                     if (inventoryTo.AddItem(id, 1) != 0)
                     {
+                        // unequip + equip
+                        if (_itemMenuController.InToolbar)
+                        {
+                            for (int i = 0; i < inventoryTo.Count(); ++i)
+                            {
+                                if (inventoryTo.GetBySlotNumber(i).type == _itemListHandler.GetNeededSlotTypeById(id))
+                                {
+                                    string idwas = inventoryTo.GetBySlotNumber(i).id;
+                                    inventoryFrom.RemoveItemAtSlot(_itemMenuController.CurrentSlot, id, 1, deleteSlot);
+                                    inventoryFrom.AddItem(idwas, 1);
+                                    inventoryTo.RemoveItemAtSlot(i, idwas, 1, false);
+                                    inventoryTo.AddItem(id, 1);
+                                    Debug.Log("Switched");
+                                    _closeItemMenu.Execute();
+                                    _menuController.Pop();
+                                    return;
+                                }
+                            }
+                        }
                         Debug.Log("Can't equip/unequip");
                         return;
                     }
-                    Debug.Log("Equipped");
+                    Debug.Log("Equipped/Unequipped");
                 }
 
                 inventoryFrom.RemoveItemAtSlot(_itemMenuController.CurrentSlot, id, 1, deleteSlot);

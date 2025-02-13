@@ -54,21 +54,25 @@ namespace Client.Runtime.Game.Mechanics.Inventory
             }
 
             string item1 = itemObj.craftsFromId1;
+            var itemObj1 = _itemListHandler.GetObjectById(item1);
             string item2 = itemObj.craftsFromId2;
+            var itemObj2 = _itemListHandler.GetObjectById(item2);
             if (item1 == item2)
             {
-                if (GetToolbarInventory().GetItemCount(item1) == 2)
+                if (GetToolbarInventory().GetItemCount(item1) % itemObj1.stack == 2 || 
+                GetToolbarInventory().GetItemCount(item1) % itemObj1.stack == 0)
                 {
                     return true;
                 }
             }
             else
             {
-                foreach (var idToFind in new List<string>(){item1, item2})
-                {
-                    if (GetToolbarInventory().GetItemCount(idToFind) == 1)
-                        return true;
-                }
+                if (GetToolbarInventory().GetItemCount(item1) % itemObj1.stack == 1 
+                || GetToolbarInventory().GetItemCount(item1) % itemObj1.stack == 0)
+                    return true;
+                if (GetToolbarInventory().GetItemCount(item2) % itemObj2.stack == 1
+                || GetToolbarInventory().GetItemCount(item2) % itemObj2.stack == 0)
+                    return true;
             }
 
             return false;

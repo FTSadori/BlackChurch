@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e805106a18b32b242a8192e0fcc255e0, type: 3}
+  m_Name: ShotPencil
+  m_EditorClassIdentifier: 
+  id: ShotPencil
+  sprite: {fileID: 21300000, guid: 90fbcd208ba44714798e863aa7eb5672, type: 3}
+  rarity: 6
+  quantity: 1
+  stack: 1
+  itemType: 2
+  craftsFromId1: YellowWater
+  craftsFromId2: RedPorridge
+  equipableType: 0
+  additiveStats:
+    maxHp: 0
+    baseAttack: 40
+    baseDefence: 0
+    pureAttack: 0
+    pureDefence: 0
+    regenerationRate: 2
+    speedBuff: 0.5
+    meleeBuff: 0
+    rangedBuff: 0
+  weaponType: 0
+  godType: 1
