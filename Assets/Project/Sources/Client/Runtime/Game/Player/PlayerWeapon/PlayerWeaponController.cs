@@ -5,39 +5,33 @@ using System.Threading.Tasks;
 using Client.Runtime.Game.Mechanics.Attack;
 using Client.Runtime.Game.Mechanics.Inventory;
 using Client.Runtime.Game.ScriptableObjects;
+using Client.Runtime.Game.ScriptableObjects.Visuals;
 using UnityEngine;
 
 namespace Client.Runtime.Game.Player.PlayerWeapon
 {
     public sealed class PlayerWeaponController : MonoBehaviour
     {
-        [SerializeField] GameObject _leftSprite;
-        [SerializeField] GameObject _rightSprite;
-        [SerializeField] AttackCursorController _attackCursorController; 
         [SerializeField] PlayerController _playerController;
         [SerializeField] EquipmentModel _equipmentModel;
-        [SerializeField] WeaponType _weaponType;
         [SerializeField] ItemListHandler _itemListHandler;
+        [SerializeField] SpriteRenderer _spriteRenderer;
+        [SerializeField] RarityColorsScriptableObject _rarityColorsScriptableObject;
 
-        bool showWeapon = false;
         bool LeftActive => _playerController.LastDirection == -1;
 
         string currentId;
 
-        public void ShowWeapon(Sprite sprite)
+
+        public void ShowWeapon(Rarity rarity)
         {
-            showWeapon = true;
-            // set sprite
-            Debug.LogError("Add sprite changing");
-            _playerController.AutoChangeDirection = _weaponType != WeaponType.RANGED;
-            
-            //_leftSprite.sprite = sprite;
-            //_rightSprite.sprite = sprite;
+            _spriteRenderer.gameObject.SetActive(true);
+            _spriteRenderer.color = _rarityColorsScriptableObject.rarityColors[(int)rarity];
         }
 
         public void HideWeapon()
         {
-            showWeapon = false;
+            _spriteRenderer.gameObject.SetActive(false);
         }
 
         private void Update() {
@@ -50,9 +44,9 @@ namespace Client.Runtime.Game.Player.PlayerWeapon
                 }
                 else if (_itemListHandler.GetObjectById(currentId) is EquipableScriptableObject equipableSO)
                 {
-                    if (equipableSO.weaponType == _weaponType)
+                    if (equipableSO.weaponType == WeaponType.MELEE)
                     {
-                        ShowWeapon(null);
+                        ShowWeapon(equipableSO.rarity);
                     }
                     else
                     {
@@ -61,6 +55,9 @@ namespace Client.Runtime.Game.Player.PlayerWeapon
                 }    
             }
 
+            _spriteRenderer.flipX = LeftActive;
+
+            /*
             _leftSprite.SetActive(showWeapon && LeftActive);
             _rightSprite.SetActive(showWeapon && !LeftActive);
             
@@ -75,6 +72,7 @@ namespace Client.Runtime.Game.Player.PlayerWeapon
                 else
                     _rightSprite.transform.rotation = Quaternion.Euler(0f, 0f, _attackCursorController.CursorAngle);
             }
+            */
         }
     }
 }

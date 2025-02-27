@@ -15,6 +15,8 @@ namespace Client.Runtime.Game.Player
         [SerializeField] private GroundDetectorModel _groundDetectorModel;
         [SerializeField] private GroundDetectorView _groundDetectorView;
         [SerializeField] private SelectorController _selectorController;
+        [SerializeField] private Animator _animator;
+        [SerializeField] private Animator _knifeAnimator;
 
         [Header("Constants")]
         [SerializeField] private float _maxVerticalFallingSpeed = 1f;
@@ -64,6 +66,13 @@ namespace Client.Runtime.Game.Player
             if (CanMove && !CompletelyPaused)
             {
                 CheckHorizontalMove();
+                _animator.SetBool("Moves", (int)Input.GetAxisRaw("Horizontal") != 0);     
+                _knifeAnimator.SetBool("Moves", (int)Input.GetAxisRaw("Horizontal") != 0);     
+            }
+            else
+            {
+                _animator.SetBool("Moves", false);
+                _knifeAnimator.SetBool("Moves", false);
             }
         }
 
@@ -122,6 +131,9 @@ namespace Client.Runtime.Game.Player
                     _playerView.Rigidbody.velocity = new Vector2(oldX, -_maxVerticalFallingSpeed);
                 }
             }
+
+            _animator.SetBool("Jumps", _playerView.Rigidbody.velocity.y < -1f);
+            _knifeAnimator.SetBool("Jumps", _playerView.Rigidbody.velocity.y < -1f);
         }
 
         private void CheckHorizontalMove() {
@@ -129,12 +141,15 @@ namespace Client.Runtime.Game.Player
             var delta = _playerModel.MaxSpeed * Time.fixedDeltaTime;
             if (AutoChangeDirection && (int)horizontal != 0)
                 LastDirection = (int)horizontal;
+        
 
             _playerView.Rigidbody.position += new Vector2(horizontal * delta, 0f);
         }
 
         private void OnEnterGround()
         {
+            _animator.SetBool("Jumps", false);
+            _knifeAnimator.SetBool("Jumps", false);
             _playerView.Rigidbody.gravityScale = _playerModel.BaseGravity;
         }
 
