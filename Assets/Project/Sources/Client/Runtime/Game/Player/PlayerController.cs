@@ -17,6 +17,7 @@ namespace Client.Runtime.Game.Player
         [SerializeField] private SelectorController _selectorController;
         [SerializeField] private Animator _animator;
         [SerializeField] private Animator _knifeAnimator;
+        [SerializeField] private Animator _noHandsAnimator;
 
         [Header("Constants")]
         [SerializeField] private float _maxVerticalFallingSpeed = 1f;
@@ -28,7 +29,11 @@ namespace Client.Runtime.Game.Player
         private int _lastDirection = 1;
         public int LastDirection { 
             get => _lastDirection; 
-            set {_lastDirection = value; _playerView.SpriteRenderer.flipX = _lastDirection == -1;}
+            set {
+                _lastDirection = value;
+                _playerView.SpriteRenderer.flipX = _lastDirection == -1;
+                _noHandsAnimator.gameObject.GetComponent<SpriteRenderer>().flipX = _lastDirection == -1;
+                }
         }
         public bool CanMove = true;
         public bool CompletelyPaused = false;
@@ -67,12 +72,14 @@ namespace Client.Runtime.Game.Player
             {
                 CheckHorizontalMove();
                 _animator.SetBool("Moves", (int)Input.GetAxisRaw("Horizontal") != 0);     
-                _knifeAnimator.SetBool("Moves", (int)Input.GetAxisRaw("Horizontal") != 0);     
+                _knifeAnimator.SetBool("Moves", (int)Input.GetAxisRaw("Horizontal") != 0); 
+                _noHandsAnimator.SetBool("Moves", (int)Input.GetAxisRaw("Horizontal") != 0);
             }
             else
             {
                 _animator.SetBool("Moves", false);
                 _knifeAnimator.SetBool("Moves", false);
+                _noHandsAnimator.SetBool("Moves", false);
             }
         }
 
@@ -134,6 +141,7 @@ namespace Client.Runtime.Game.Player
 
             _animator.SetBool("Jumps", _playerView.Rigidbody.velocity.y < -1f);
             _knifeAnimator.SetBool("Jumps", _playerView.Rigidbody.velocity.y < -1f);
+            _noHandsAnimator.SetBool("Jumps", _playerView.Rigidbody.velocity.y < -1f);
         }
 
         private void CheckHorizontalMove() {
@@ -150,6 +158,7 @@ namespace Client.Runtime.Game.Player
         {
             _animator.SetBool("Jumps", false);
             _knifeAnimator.SetBool("Jumps", false);
+            _noHandsAnimator.SetBool("Jumps", false);
             _playerView.Rigidbody.gravityScale = _playerModel.BaseGravity;
         }
 
