@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Client.Runtime.Game.Mechanics.Inventory;
 using Client.Runtime.Game.Player;
 using Client.Runtime.Game.ScriptableObjects;
+using Client.Runtime.Game.ScriptableObjects.Items;
 using Sources.Client.Runtime.Game.Mechanics;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ namespace Client.Runtime.Game.Mechanics
             CharacterStats characterStats = new();
             characterStats.Set(baseStats);
 
-            WeaponType weaponType = WeaponType.MELEE;
+            EquipableScriptableObject weapon = null;
 
             for (int i = 0; i < 7; ++i)
             {
@@ -29,14 +30,14 @@ namespace Client.Runtime.Game.Mechanics
                 {
                     if (i == 0)
                     {
-                        weaponType = eobj.weaponType;
+                        weapon = eobj;
                     }
                     characterStats.AddStats(eobj.additiveStats, godBuffs, eobj.godType);
                 }
             }
 
             characterStats.baseAttack = (int)(characterStats.baseAttack * 
-                ((weaponType == WeaponType.MELEE)
+                ((weapon == null || weapon is MeleeWeaponScriptableObject)
                 ? characterStats.meleeBuff
                 : characterStats.rangedBuff));
 

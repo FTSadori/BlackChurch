@@ -1,5 +1,6 @@
 using System;
 using Client.Runtime.Game.Mechanics;
+using Client.Runtime.Game.Mechanics.Inventory;
 using Client.Runtime.Game.ScriptableObjects.Entities.PlayerCharacters;
 using Sources.Client.Runtime.Game.Mechanics;
 using UnityEngine;

@@ -17,18 +17,11 @@ namespace Client.Runtime.Game.ScriptableObjects
         ACCESSORY,
     }
 
-    public enum WeaponType
-    {
-        RANGED,
-        MELEE,
-    }
-
-    [CreateAssetMenu(fileName = "Equipable", menuName = "ScriptableObjects/Items/Equipable")]
-    public sealed class EquipableScriptableObject : MaterialScriptableObject
+    [CreateAssetMenu(fileName = "Equipable", menuName = "ScriptableObjects/Items/Equipable/General")]
+    public class EquipableScriptableObject : MaterialScriptableObject
     {
         public EquipableType equipableType;
         public CharacterStats additiveStats;
-        public WeaponType weaponType;
         public GodType godType;
     }
 }

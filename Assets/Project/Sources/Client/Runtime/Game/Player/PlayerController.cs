@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Client.Runtime.Game.Environment;
+using Client.Runtime.Game.Player.Commands;
+using Client.Runtime.Game.ScriptableObjects.Items;
 using UnityEngine;
 
 namespace Client.Runtime.Game.Player
@@ -18,6 +20,7 @@ namespace Client.Runtime.Game.Player
         [SerializeField] private Animator _animator;
         [SerializeField] private Animator _knifeAnimator;
         [SerializeField] private Animator _noHandsAnimator;
+        [SerializeField] private PlayerAttackCommand _playerAttackCommand;
 
         [Header("Constants")]
         [SerializeField] private float _maxVerticalFallingSpeed = 1f;
@@ -63,8 +66,17 @@ namespace Client.Runtime.Game.Player
             {
                 CheckJump();
                 CheckInteraction();
+                CheckAttack();
             }
             CheckFalling();
+        }
+
+        private void CheckAttack()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                _playerAttackCommand.Execute();
+            }
         }
 
         private void FixedUpdate() {

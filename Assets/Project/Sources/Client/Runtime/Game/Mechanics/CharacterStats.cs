@@ -17,6 +17,9 @@ namespace Client.Runtime.Game.Mechanics
         public int pureDefence;
         public float regenerationRate;
         public float speedBuff;
+        public float rangeBuff;
+        public float attackSpeedBuff;
+        public float ammoSpeedBuff;
         public float meleeBuff;
         public float rangedBuff;
 
@@ -39,6 +42,9 @@ namespace Client.Runtime.Game.Mechanics
             meleeBuff = other.meleeBuff;
             rangedBuff = other.rangedBuff;
             regenerationRate = other.regenerationRate;
+            rangeBuff = other.rangeBuff;
+            attackSpeedBuff = other.attackSpeedBuff;
+            ammoSpeedBuff = other.ammoSpeedBuff;
 
             OnStatsUpdate?.Invoke();
         }
@@ -56,6 +62,9 @@ namespace Client.Runtime.Game.Mechanics
             meleeBuff += godBuffs.GetPowerUppedValueFor(godType, other.meleeBuff);
             rangedBuff += godBuffs.GetPowerUppedValueFor(godType, other.rangedBuff);
             regenerationRate += godBuffs.GetPowerUppedValueFor(godType, other.regenerationRate);
+            rangeBuff += other.rangeBuff; //godBuffs.GetPowerUppedValueFor(godType, other.rangeBuff);
+            attackSpeedBuff += other.attackSpeedBuff; //godBuffs.GetPowerUppedValueFor(godType, other.attackSpeedBuff);
+            ammoSpeedBuff += other.ammoSpeedBuff; //godBuffs.GetPowerUppedValueFor(godType, other.ammoSpeedBuff);
 
             OnStatsUpdate?.Invoke();
         }

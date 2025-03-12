@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Client.Runtime.Game.Mechanics.Attack;
 using Client.Runtime.Game.Mechanics.Inventory;
 using Client.Runtime.Game.ScriptableObjects;
+using Client.Runtime.Game.ScriptableObjects.Items;
 using Client.Runtime.Game.ScriptableObjects.Visuals;
 using UnityEngine;
 
@@ -56,7 +57,7 @@ namespace Client.Runtime.Game.Player.PlayerWeapon
                 }
                 else if (_itemListHandler.GetObjectById(currentId) is EquipableScriptableObject equipableSO)
                 {
-                    if (equipableSO.weaponType == WeaponType.RANGED)
+                    if (equipableSO is RangedWeaponScriptableObject)
                     {
                         ShowWeapon(equipableSO.rarity);
                     }

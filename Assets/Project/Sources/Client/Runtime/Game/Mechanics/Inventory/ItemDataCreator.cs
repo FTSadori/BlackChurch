@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Client.Runtime.Game.Mechanics.Inventory.Data;
 using Client.Runtime.Game.ScriptableObjects;
+using Client.Runtime.Game.ScriptableObjects.Items;
 
 namespace Client.Runtime.Game.Mechanics.Inventory
 {
@@ -70,12 +71,11 @@ namespace Client.Runtime.Game.Mechanics.Inventory
                             case EquipableType.HEAD:
                                 return TypeIds.Head;
                             case EquipableType.WEAPON:
-                                return equipableObj.weaponType switch
-                                {
-                                    WeaponType.MELEE => TypeIds.Melee,
-                                    WeaponType.RANGED => TypeIds.Ranged,
-                                    _ => TypeIds.Error
-                                };
+                                if (equipableObj is MeleeWeaponScriptableObject)
+                                    return TypeIds.Melee;
+                                if (equipableObj is RangedWeaponScriptableObject)
+                                    return TypeIds.Ranged;
+                                return TypeIds.Error;
                         }
                     }
                 break;

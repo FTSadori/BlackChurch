@@ -20,7 +20,7 @@ TagManager:
   - NotPlayersPlatform
   - ItemsCollider
   - ItemsTrigger
-  - 
+  - OurPlayerBullets
   - 
   - 
   - 

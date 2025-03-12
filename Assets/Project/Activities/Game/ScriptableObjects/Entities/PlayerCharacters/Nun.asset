@@ -21,6 +21,9 @@ MonoBehaviour:
     pureDefence: 0
     regenerationRate: 0
     speedBuff: 1
+    rangeBuff: 0
+    attackSpeedBuff: 1
+    ammoSpeedBuff: 0
     meleeBuff: 0.6
     rangedBuff: 1
   godBuffs:

@@ -9,33 +9,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bb6ed732d14b6e468ec15884ae48aab, type: 3}
-  m_Name: ShotPencil
+  m_Script: {fileID: 11500000, guid: bcbdb79e1dc67f841bf44be16c8f66c1, type: 3}
+  m_Name: Fist
   m_EditorClassIdentifier: 
-  id: ShotPencil
-  sprite: {fileID: 21300000, guid: 90fbcd208ba44714798e863aa7eb5672, type: 3}
-  rarity: 5
+  id: 
+  sprite: {fileID: 0}
+  rarity: 0
   quantity: 1
   stack: 1
-  itemType: 2
-  craftsFromId1: YellowWater
-  craftsFromId2: RedPorridge
+  itemType: 0
+  craftsFromId1: 
+  craftsFromId2: 
   equipableType: 0
   additiveStats:
     maxHp: 0
-    baseAttack: 40
+    baseAttack: 0
     baseDefence: 0
     pureAttack: 0
     pureDefence: 0
-    regenerationRate: 2
-    speedBuff: 0.5
+    regenerationRate: 0
+    speedBuff: 0
     rangeBuff: 0
     attackSpeedBuff: 0
     ammoSpeedBuff: 0
     meleeBuff: 0
     rangedBuff: 0
-  godType: 1
-  ammoId: Trash
-  shootSpeed: 1
-  ammoSpeed: 4
-  ammoSize: 0.2
+  godType: 7
+  xRange: 2
+  yRange: 2
+  defaultAttackSpeed: 1
