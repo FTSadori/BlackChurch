@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cede4b99c007a284581c6fe9a2b86cf8, type: 3}
   m_Name: Bat
   m_EditorClassIdentifier: 
-  characterName: AngelBat
+  characterName: Sans
   baseStats:
     maxHp: 10
     baseAttack: 2
@@ -21,6 +21,9 @@ MonoBehaviour:
     pureDefence: 0
     regenerationRate: 0
     speedBuff: 0
+    rangeBuff: 0
+    attackSpeedBuff: 0
+    ammoSpeedBuff: 0
     meleeBuff: 0
     rangedBuff: 0
-  corpseObject: {fileID: 0}
+  corpseObject: {fileID: 11400000, guid: 9a19aefb8e9dc32478519a306eb80f75, type: 2}

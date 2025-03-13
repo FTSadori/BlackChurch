@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Client.Runtime.Framework.Unity;
 using Client.Runtime.Game.Mechanics;
+using Client.Runtime.Game.Mechanics.AttackInterfaces;
+using Client.Runtime.Game.Mechanics.Bullets;
 using Client.Runtime.Game.ScriptableObjects.Items;
 using Codice.CM.Common;
 using UnityEngine;
@@ -16,12 +18,14 @@ namespace Client.Runtime.Game.Player.Commands
         public float angle;
         public CharacterStats currentStats;
         public MeleeWeaponScriptableObject meleeObject;
+        public IBulletSender bulletSender;
 
-        public PlayerMeleeAttackDto(CharacterStats _currentStats, MeleeWeaponScriptableObject _meleeObject, float _angle)
+        public PlayerMeleeAttackDto(CharacterStats _currentStats, MeleeWeaponScriptableObject _meleeObject, float _angle, IBulletSender _bulletSender)
         {
             angle = _angle;
             currentStats = _currentStats;
             meleeObject = _meleeObject;
+            bulletSender = _bulletSender;
         }
     }
 
@@ -62,6 +66,7 @@ namespace Client.Runtime.Game.Player.Commands
 
         void ShowAndScale(GameObject attack, PlayerMeleeAttackDto dto, float X, float Y, bool swap)
         {
+            attack.GetComponent<UndestroyableBullet>().SetValues(dto.currentStats.pureAttack, dto.currentStats.baseAttack, new Vector2(X, Y), dto.bulletSender);
             attack.SetActive(true);
             if (swap)
             {

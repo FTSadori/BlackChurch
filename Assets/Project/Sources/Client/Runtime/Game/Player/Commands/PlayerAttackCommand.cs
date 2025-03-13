@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Client.Runtime.Framework.Unity;
 using Client.Runtime.Game.Mechanics;
 using Client.Runtime.Game.Mechanics.Attack;
+using Client.Runtime.Game.Mechanics.Bullets;
 using Client.Runtime.Game.Mechanics.Inventory;
 using Client.Runtime.Game.ScriptableObjects;
 using Client.Runtime.Game.ScriptableObjects.Items;
@@ -22,6 +23,7 @@ namespace Client.Runtime.Game.Player.Commands
         [SerializeField] private MeleeWeaponScriptableObject _baseWeapon;
         [SerializeField] AttackCursorController attackCursorController;
         [SerializeField] PlayerModel _playerModel;
+        [SerializeField] PlayerBulletSender _playerBulletSender;
 
         public override void Execute()
         {
@@ -30,11 +32,11 @@ namespace Client.Runtime.Game.Player.Commands
 
             if (obj is MeleeWeaponScriptableObject mObject)
             {
-                playerMeleeAttackCommand.Execute(new PlayerMeleeAttackDto(_playerModel.currentStats, mObject, attackCursorController.CursorAngle));
+                playerMeleeAttackCommand.Execute(new PlayerMeleeAttackDto(_playerModel.currentStats, mObject, attackCursorController.CursorAngle, _playerBulletSender));
             }
             else if (obj is RangedWeaponScriptableObject rObject)
             {
-                playerRangedAttackCommand.Execute(new PlayerRangedAttackDto(_playerModel.currentStats, rObject, attackCursorController.CursorDirection));
+                playerRangedAttackCommand.Execute(new PlayerRangedAttackDto(_playerModel.currentStats, rObject, attackCursorController.CursorDirection, _playerBulletSender));
             }
         }
     }

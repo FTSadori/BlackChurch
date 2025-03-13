@@ -37,5 +37,5 @@ MonoBehaviour:
   godType: 1
   ammoId: Trash
   shootSpeed: 1
-  ammoSpeed: 4
+  ammoSpeed: 16
   ammoSize: 0.2

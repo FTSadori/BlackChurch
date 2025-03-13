@@ -1,5 +1,6 @@
 using System;
 using Client.Runtime.Game.Mechanics;
+using Client.Runtime.Game.Mechanics.AttackInterfaces;
 using Client.Runtime.Game.Mechanics.Inventory;
 using Client.Runtime.Game.ScriptableObjects.Entities.PlayerCharacters;
 using Sources.Client.Runtime.Game.Mechanics;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace Client.Runtime.Game.Player
 {
-    public sealed class PlayerModel : MonoBehaviour
+    public sealed class PlayerModel : AbstractEntityDataHolder
     {
         [Header("Stats")]
         public float MaxSpeed;
@@ -20,8 +21,8 @@ namespace Client.Runtime.Game.Player
 
         private int hp;
 
-        public Action OnDeath;
         public Action OnHpUpdate;
+        public Action OnPlayerDeath;
 
 
         public int HP { get => hp; set {
@@ -30,7 +31,7 @@ namespace Client.Runtime.Game.Player
 
                 if (hp <= 0)
                 {
-                    OnDeath?.Invoke();
+                    OnDeath();
                 }
             } 
         }
@@ -53,6 +54,26 @@ namespace Client.Runtime.Game.Player
             {
                 HP += 1;
             }
+        }
+
+        public override void ChangeHp(float value, float pureDmg)
+        {
+            HP += (int)value - (int)pureDmg;
+        }
+
+        public override void OnDeath()
+        {
+            OnPlayerDeath?.Invoke();
+        }
+
+        public override CharacterStats GetCharacterStats()
+        {
+            return currentStats;
+        }
+
+        public override string GetName()
+        {
+            return scriptableObject.characterName;
         }
     }
 }

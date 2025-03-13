@@ -12,9 +12,9 @@ namespace Client.Runtime.Game.Environment.Storage
     public sealed class StorageController : MonoBehaviour, ISelectable
     {
         [SerializeField] GameObject _selectionTexture;
-        [SerializeField] OpenStorageMenuInputCommand _openStorageMenuInputCommand;
+        [SerializeField] public OpenStorageMenuInputCommand _openStorageMenuInputCommand;
         [SerializeField] StorageModel _storageModel;
-        [SerializeField] string _name;
+        [SerializeField] public string _name;
         bool CanPutIn => _storageModel.CanPutIn;
 
         public HelpBoxType HelpBoxType => HelpBoxType.ONE_BUTTON;
