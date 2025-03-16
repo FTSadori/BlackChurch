@@ -110,7 +110,7 @@ namespace Client.Runtime.Framework.Unity.SceneCommands
 
             _isBuzy = false;
 
-            OnComplete();
+            OnComplete?.Invoke();
         }
     }
 }

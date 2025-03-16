@@ -15,6 +15,7 @@ namespace Client.Runtime.System
         {
             public const string Lobby = "Activity_Lobby";
             public const string Game = "Activity_Game";
+            public const string Room = "Activity_Room";
         }
     }
 }

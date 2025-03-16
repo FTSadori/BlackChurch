@@ -6,7 +6,6 @@ using Client.Runtime.Game.Player;
 using UnityEngine;
 using TMPro;
 using Client.Runtime.Game.ScriptableObjects;
-using Unity.Plastic.Newtonsoft.Json;
 using Sources.Client.Runtime.Game.Mechanics;
 
 namespace Client.Runtime.Game.Mechanics.Inventory.MenuControllers

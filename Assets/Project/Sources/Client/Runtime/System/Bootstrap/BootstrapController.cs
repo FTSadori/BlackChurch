@@ -13,14 +13,14 @@ namespace Client.Runtime.System.Bootstrap
             SceneManager.LoadSceneAsync(Scenes.System.MainCamera, LoadSceneMode.Additive);
             SceneManager.LoadSceneAsync(Scenes.System.Input, LoadSceneMode.Additive);
             SceneManager.LoadSceneAsync(Scenes.System.Audio, LoadSceneMode.Additive);
-            _loadLobbyOperation = SceneManager.LoadSceneAsync(Scenes.Activity.Game, LoadSceneMode.Additive);
+            _loadLobbyOperation = SceneManager.LoadSceneAsync(Scenes.Activity.Lobby, LoadSceneMode.Additive);
             _loadLobbyOperation.completed += OnLobbySceneLoaded;
         }
 
         private void OnLobbySceneLoaded(AsyncOperation operation)
         {
             _isLobbyLoaded = operation.isDone;
-			SceneManager.SetActiveScene(SceneManager.GetSceneByName(Scenes.Activity.Game));
+			SceneManager.SetActiveScene(SceneManager.GetSceneByName(Scenes.Activity.Lobby));
         }
 
         private void Update()

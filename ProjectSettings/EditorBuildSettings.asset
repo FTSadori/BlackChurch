@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Project/Activities/Game/Scenes/Activity_Game.unity
     guid: b8bb7a733ead4f143bee9a4feca39533
+  - enabled: 1
+    path: Assets/Project/Activities/Lobby/Scenes/Activity_Room.unity
+    guid: 11ca311dd4da627409070a56ff6c0c26
+  - enabled: 1
+    path: Assets/Project/Activities/Lobby/Scenes/Activity_Lobby.unity
+    guid: a782cc067d739cc43a161dcbecb46da1
   m_configObjects: {}
