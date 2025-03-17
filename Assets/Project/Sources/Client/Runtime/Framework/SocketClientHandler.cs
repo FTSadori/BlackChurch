@@ -26,6 +26,23 @@ namespace Client.Runtime.Framework
             {
                 clientSocket.Socket.Connect(IPAddress.Parse(ip), port);
                 IsConnected = true;
+
+                byte[] buffer = new byte[1024];
+                clientSocket.Socket.Receive(buffer);
+
+                string ans = Encoding.UTF8.GetString(buffer);
+                if (ans == "0")
+                {
+                    return;
+                }
+                else if (ans == "1")
+                {
+                    throw new Exception("Not enough space in the room");
+                }
+                else if (ans == "2")
+                {
+                    throw new Exception("Some unknown error occured");
+                }
             }
         }
 
@@ -33,7 +50,7 @@ namespace Client.Runtime.Framework
         {
             lock (socketLock)
             {
-                return clientSocket.Socket.Send(Encoding.ASCII.GetBytes(message));
+                return clientSocket.Socket.Send(Encoding.UTF8.GetBytes(message));
             }
         }
 

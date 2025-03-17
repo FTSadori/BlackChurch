@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Server.Framework;
 using UnityEngine;
 
 namespace Client.Runtime.Room.AwakeObjects
@@ -27,6 +28,8 @@ namespace Client.Runtime.Room.AwakeObjects
         public int SlotIndex { get; private set; } = 0;
         public List<PlayerData> playerDatas = new();
 
+        public static string _currentRoomData = "";
+
         public void AddPlayer(PlayerData playerData)
         {
             if (SlotIndex >= _slots.Count)
@@ -47,6 +50,8 @@ namespace Client.Runtime.Room.AwakeObjects
 
         public void UpdateSlots()
         {
+            _currentRoomData = StaticServerInfo._openedPort.ToString();
+
             foreach (RoomSlotController slot in _slots)
             {
                 slot.Unset();
@@ -54,6 +59,7 @@ namespace Client.Runtime.Room.AwakeObjects
             for (int i = 0; i < playerDatas.Count; ++i)
             {
                 _slots[i].Set(playerDatas[i]);
+                _currentRoomData += $";{playerDatas[i].player};{playerDatas[i].character}";
             }
         }
     }
