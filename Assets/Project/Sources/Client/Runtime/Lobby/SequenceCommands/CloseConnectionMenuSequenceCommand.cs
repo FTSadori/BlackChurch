@@ -35,7 +35,7 @@ namespace Client.Runtime.Lobby.SequenceCommands
 
             sequence.Insert(0f, _connectButton.DOAnchorPosX(360f, 0f));
             sequence.Insert(0f, _backButton.DOAnchorPosX(-360f, 0f));
-            sequence.Insert(0f, _inputField.DOAnchorPosY(-213.5f, 0f));
+            sequence.Insert(0f, _inputField.DOAnchorPosY(213.5f, 0f));
 
             sequence.OnComplete(() => { OnComplete?.Invoke(); });
         }

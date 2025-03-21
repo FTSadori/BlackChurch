@@ -41,6 +41,11 @@ namespace Client.Runtime.Room.AwakeObjects
             UpdateSlots();
         }
 
+        public void ClearPlayerData()
+        {
+            playerDatas.Clear();
+        }
+
         public void RemovePlayer(PlayerData playerData)
         {
             playerDatas.RemoveAll(p => p.player == playerData.player);

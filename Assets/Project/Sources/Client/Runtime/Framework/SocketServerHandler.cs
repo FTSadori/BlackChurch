@@ -23,7 +23,7 @@ namespace Server.Framework
         }
     }
 
-    class ShortPlayerData
+    public class ShortPlayerData
     {
         public string name;
         public string characterId;
@@ -49,7 +49,7 @@ namespace Server.Framework
         
         Queue<ClientMessageData> messages = new();
 
-        public Action OnConnect;
+        public Action<ShortPlayerData> OnConnect;
 
         public void EstablishEndpoint(int port)
         {
@@ -119,8 +119,8 @@ namespace Server.Framework
                     clientSocket.Socket.Receive(data);
 
                     var parts = Encoding.UTF8.GetString(data).Split(";");
-                    ShortPlayerData pldata = new(parts[0], parts[1]);
-                    Debug.Log("Got nick;chara");
+                    ShortPlayerData pldata = new(parts[0], parts[1].Trim(new char[]{'\0', ' '}));
+                    Debug.Log($"Got nick;chara ({pldata.name};(size {pldata.characterId.Length}) {pldata.characterId})");
 
                     // save data
                     int hash = clientSocket.Socket.GetHashCode();
@@ -130,9 +130,11 @@ namespace Server.Framework
 
                     // update everything
                     MainThreadDispatcher.Enqueue(delegate() { 
-                        OnConnect?.Invoke();
+                        OnConnect?.Invoke(pldata);
+                        Debug.Log("Updated room " + RoomController._currentRoomData);
                         SendMessage(hash, RoomController._currentRoomData);
                         Debug.Log("Send back data");
+                        SendMessageToAll("updateRoom#" + RoomController._currentRoomData);
                     });
                     Debug.Log("Someone has connected to the server");
                     
